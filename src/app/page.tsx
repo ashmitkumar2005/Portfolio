@@ -1,6 +1,11 @@
+import GalaxyBackground from "@/components/GalaxyBackground";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-4 pt-24 md:pt-28">
+    <main className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-24 md:pt-28">
+      {/* Fullscreen animated galaxy section behind content */}
+      <GalaxyBackground />
+
       <section className="flex flex-col items-center text-center max-w-2xl">
         <div className="w-32 h-32 mb-6 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700 shadow-md">
           <span className="text-gray-400 text-5xl">🧠</span>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +26,59 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-transparent text-gray-100 relative`}
       >
+        {/* Base deepened gradient for higher contrast */}
+        <div
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-[#05070f] via-[#060815] to-[#000105]"
+          aria-hidden
+        />
+        {/* Soft top glow */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-[-10%] h-[40vh] -z-10 [background:radial-gradient(60%_60%_at_50%_30%,rgba(59,130,246,0.5),rgba(59,130,246,0.3)_35%,transparent_70%)] blur-2xl"
+          aria-hidden
+        />
+        {/* Center halo behind hero */}
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(700px_380px_at_50%_35%,rgba(56,189,248,0.28),rgba(59,130,246,0.2)_40%,transparent_70%)]"
+          aria-hidden
+        />
+        {/* Starfield */}
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 opacity-35"
+          aria-hidden
+          style={{
+            backgroundImage:
+              "radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.7) 50%, transparent 51%)," +
+              "radial-gradient(1.5px 1.5px at 30% 70%, rgba(255,255,255,0.6) 50%, transparent 51%)," +
+              "radial-gradient(1px 1px at 60% 40%, rgba(255,255,255,0.5) 50%, transparent 51%)," +
+              "radial-gradient(1.2px 1.2px at 80% 25%, rgba(255,255,255,0.65) 50%, transparent 51%)," +
+              "radial-gradient(1px 1px at 20% 85%, rgba(255,255,255,0.55) 50%, transparent 51%)," +
+              "radial-gradient(1px 1px at 75% 75%, rgba(255,255,255,0.5) 50%, transparent 51%)," +
+              "radial-gradient(1px 1px at 45% 55%, rgba(255,255,255,0.6) 50%, transparent 51%)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "auto",
+          }}
+        />
+        {/* Vignette to darken edges */}
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          aria-hidden
+          style={{
+            background:
+              "radial-gradient(120% 100% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+        {/* Blue nebula band near bottom */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-[-10%] h-[45vh] -z-10 blur-2xl"
+          aria-hidden
+          style={{
+            background:
+              "radial-gradient(60% 50% at 50% 85%, rgba(37,99,235,0.5), rgba(37,99,235,0.3) 45%, transparent 70%)",
+          }}
+        />
+        <Navbar />
         {children}
       </body>
     </html>

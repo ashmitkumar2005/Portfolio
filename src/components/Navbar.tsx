@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import ExpandableLogo from "@/components/ExpandableLogo";
 
 export default function Navbar() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -10,11 +11,11 @@ export default function Navbar() {
 
   const textFrontVariants = {
     initial: { y: 0, rotateX: 0 },
-    hover: { y: "-100%", rotateX: -90 },
+    hover: { y: "-100%", rotateX: -80 },
   };
 
   const textBackVariants = {
-    initial: { y: "100%", rotateX: 90 },
+    initial: { y: "100%", rotateX: 80 },
     hover: { y: 0, rotateX: 0 },
   };
 
@@ -41,21 +42,19 @@ export default function Navbar() {
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">
       <motion.nav
-        className="pointer-events-auto relative w-full max-w-none rounded-full border-[0.5px] border-white/10 bg-black/60 backdrop-blur supports-[backdrop-filter]:bg-black/50 shadow-lg px-4 py-1.5 flex items-center justify-between text-sm text-gray-100"
+        className="pointer-events-auto relative w-full max-w-none rounded-full border-[0.5px] border-white/10 bg-black/40 backdrop-blur supports-[backdrop-filter]:bg-black/30 shadow-lg px-4 py-1.5 flex items-center justify-between text-sm text-gray-100"
         animate={{
           paddingTop: 5,
           paddingBottom: 5,
-          maxWidth: scrolled ? 760 : 1280,
+          maxWidth: scrolled ? 600 : 1280,
         }}
         transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
       >
         <Link href="/" className="flex items-center gap-2">
-          <span className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 text-base font-semibold text-white h-8 w-8 md:h-9 md:w-9">
-            A
-          </span>
+          <ExpandableLogo size={40} />
         </Link>
 
-        <ul className="hidden md:flex items-center gap-4 absolute left-1/2 -translate-x-1/2">
+        <ul className="flex items-center gap-4 absolute left-1/2 -translate-x-1/2 -ml-[10px]">
             <li className="relative">
               <Link
                 href="#work"
@@ -107,14 +106,14 @@ export default function Navbar() {
             <motion.span
               className="block"
               variants={textFrontVariants}
-              transition={{ type: "spring", stiffness: 420, damping: 34, mass: 0.7 }}
+              transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
             >
               Let’s Connect
             </motion.span>
             <motion.span
               className="absolute inset-0 block"
               variants={textBackVariants}
-              transition={{ type: "spring", stiffness: 420, damping: 34, mass: 0.7 }}
+              transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
               aria-hidden
             >
               Let’s Connect

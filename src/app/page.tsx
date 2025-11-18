@@ -1,4 +1,11 @@
 import GalaxyBackground from "@/components/GalaxyBackground";
+import localFont from "next/font/local";
+
+const casanova = localFont({
+  src: "./fonts/Casanova.ttf",
+  weight: "400",
+  style: "normal",
+});
 
 export default function Home() {
   return (
@@ -7,16 +14,12 @@ export default function Home() {
       <GalaxyBackground />
 
       <section className="flex flex-col items-center text-center max-w-2xl">
-        <div className="w-32 h-32 mb-6 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700 shadow-md">
-          <span className="text-gray-400 text-5xl">🧠</span>
-        </div>
-
-        <h1 className="text-5xl font-extrabold tracking-tight mb-3">
+        <h1 className={`${casanova.className} text-5xl font-extrabold tracking-tight mb-3 text-white drop-shadow-[0_0_18px_rgba(37,99,235,0.9)]`}>
           Ashmit Kumar
         </h1>
 
         <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-          🚀 I’m a passionate developer crafting intelligent and beautiful web experiences.
+          I’m a passionate developer crafting intelligent and beautiful web experiences.
           Exploring AI, design, and code — building stuff that matters.
         </p>
 

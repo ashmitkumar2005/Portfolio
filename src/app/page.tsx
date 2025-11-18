@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="absolute bottom-4 text-sm text-gray-500">
+      <footer className="fixed bottom-4 left-1/2 -translate-x-1/2 text-sm text-gray-500">
         © {new Date().getFullYear()} Ashmit Kumar. All rights reserved.
       </footer>
     </main>

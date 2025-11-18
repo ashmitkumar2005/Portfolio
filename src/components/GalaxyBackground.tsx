@@ -26,6 +26,15 @@ type ShootingStar = {
   hue: number; // for blue/cyan tone
 };
 
+type SnowFlake = {
+  x: number;
+  y: number;
+  r: number;
+  vy: number;
+  drift: number;
+  phase: number;
+};
+
 export default function GalaxyBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [ready, setReady] = useState(false);
@@ -41,6 +50,7 @@ export default function GalaxyBackground() {
     let animationId: number | null = null;
     let stars: Star[] = [];
     let shooting: ShootingStar[] = [];
+    let snow: SnowFlake[] = [];
 
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => {
@@ -53,9 +63,10 @@ export default function GalaxyBackground() {
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       // Rebuild stars to match density to area
       initStars();
+      initSnow();
     };
 
-    const STAR_DENSITY = 0.35; // stars per 1000 px^2 (slightly richer field)
+    const STAR_DENSITY = 0.22; // stars per 1000 px^2 (sparser field for darker sky)
     const initStars = () => {
       const areaK = (width * height) / 1000;
       const count = Math.max(300, Math.floor(areaK * STAR_DENSITY));
@@ -64,14 +75,29 @@ export default function GalaxyBackground() {
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          r: Math.max(0.2, Math.pow(Math.random(), 2) * 1.0) * (0.5 + depth),
-          baseAlpha: 0.35 + Math.random() * 0.5,
+          r: Math.max(0.14, Math.pow(Math.random(), 2) * 0.7) * (0.4 + depth * 0.7),
+          baseAlpha: 0.08 + Math.random() * 0.2,
           phase: Math.random() * Math.PI * 2,
           twinkle: 0.001 + Math.random() * 0.003, // subtler twinkle
           depth,
           vx: (Math.random() - 0.5) * 0.004 * (0.3 + depth), // tinier movement
           vy: (Math.random() - 0.5) * 0.004 * (0.3 + depth),
         } as Star;
+      });
+    };
+
+    const initSnow = () => {
+      const count = Math.max(110, Math.floor((width * height) / 21000));
+      snow = new Array(count).fill(0).map(() => {
+        const r = 0.45 + Math.random() * 0.85;
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r,
+          vy: 0.2 + Math.random() * 0.4,
+          drift: (Math.random() - 0.5) * 0.15,
+          phase: Math.random() * Math.PI * 2,
+        } as SnowFlake;
       });
     };
 
@@ -128,9 +154,9 @@ export default function GalaxyBackground() {
       const ny = baseY + lastScrollY * 0.008;
 
       const circles = [
-        { x: nx - 220 + offset * 0.6, y: ny - 120, r: Math.max(width, height) * 0.6, c: "rgba(0,150,255,0.06)" },
-        { x: nx + 160 - offset * 0.4, y: ny + 40, r: Math.max(width, height) * 0.5, c: "rgba(30,120,255,0.07)" },
-        { x: nx, y: ny - 40 + offset * 0.2, r: Math.max(width, height) * 0.7, c: "rgba(0,200,200,0.05)" },
+        { x: nx - 220 + offset * 0.6, y: ny - 120, r: Math.max(width, height) * 0.6, c: "rgba(0,80,160,0.018)" },
+        { x: nx + 160 - offset * 0.4, y: ny + 40, r: Math.max(width, height) * 0.5, c: "rgba(10,70,160,0.02)" },
+        { x: nx, y: ny - 40 + offset * 0.2, r: Math.max(width, height) * 0.7, c: "rgba(0,110,140,0.016)" },
       ];
 
       for (const g of circles) {
@@ -169,7 +195,7 @@ export default function GalaxyBackground() {
         if (s.y < -5) s.y = height + 5;
         if (s.y > height + 5) s.y = -5;
 
-        const alpha = Math.max(0, Math.min(1, s.baseAlpha * (0.7 + 0.3 * Math.sin(s.phase))));
+        const alpha = Math.max(0, Math.min(1, s.baseAlpha * (0.55 + 0.2 * Math.sin(s.phase))));
         const px = s.x + p * (0.02 * s.depth);
         const py = s.y + p * (0.015 * s.depth);
         // Subtle wobble so every star moves a tiny bit even without drift
@@ -180,15 +206,15 @@ export default function GalaxyBackground() {
         const r = Math.max(0.12, s.r * pulse);
 
         ctx.globalAlpha = alpha;
-        ctx.fillStyle = "#cfe8ff";
+        ctx.fillStyle = "#7d8fb5";
         ctx.beginPath();
         ctx.arc(px + wobbleX, py + wobbleY, r, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Slight star glint pass for brighter ones
-      ctx.globalAlpha = 0.3;
-      ctx.strokeStyle = "rgba(180,210,255,0.35)";
+      // Slight star glint pass for a few stars (very subtle in dark mode)
+      ctx.globalAlpha = 0.1;
+      ctx.strokeStyle = "rgba(120,145,210,0.2)";
       for (let i = 0; i < stars.length; i += 24) {
         const s = stars[i];
         const px = s.x + p * (0.02 * s.depth) + Math.sin(s.phase * 0.6 + s.depth * 5) * 0.4;
@@ -202,6 +228,31 @@ export default function GalaxyBackground() {
       }
       ctx.globalAlpha = 1;
 
+      // Snow layer (above stars, below shooting stars & nebula)
+      for (let i = 0; i < snow.length; i++) {
+        const f = snow[i];
+        f.phase += 0.01;
+        f.y += f.vy;
+        f.x += f.drift * Math.sin(f.phase);
+
+        if (f.y - f.r > height) {
+          f.y = -5 - Math.random() * 20;
+          f.x = Math.random() * width;
+        }
+        if (f.x < -10) f.x = width + 10;
+        if (f.x > width + 10) f.x = -10;
+
+        const px = f.x + p * 0.01;
+        const py = f.y + p * 0.008;
+
+        ctx.globalAlpha = 0.22;
+        ctx.fillStyle = "#e5f0ff";
+        ctx.beginPath();
+        ctx.arc(px, py, f.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
       // Draw/update shooting stars (above stars, below nebula)
       if (shooting.length) {
         ctx.save();
@@ -212,9 +263,9 @@ export default function GalaxyBackground() {
           m.y += m.vy;
           m.life -= 1;
 
-          // Fade out toward end of life with slightly higher visibility
+          // Fade out toward end of life with very low overall brightness for almost-black background
           const lifeK = Math.max(0, Math.min(1, m.life / m.maxLife));
-          const alpha = 0.35 + 0.65 * lifeK;
+          const alpha = 0.12 + 0.28 * lifeK;
 
           // Parallax offset
           const px = m.x + p * 0.015;
@@ -227,8 +278,8 @@ export default function GalaxyBackground() {
 
           // Tail gradient
           const grad = ctx.createLinearGradient(px, py, ex, ey);
-          grad.addColorStop(0, `hsla(${m.hue}, 100%, 80%, ${alpha})`);
-          grad.addColorStop(1, `hsla(${m.hue}, 100%, 80%, 0)`);
+          grad.addColorStop(0, `hsla(${m.hue}, 90%, 62%, ${alpha})`);
+          grad.addColorStop(1, `hsla(${m.hue}, 90%, 62%, 0)`);
 
           ctx.lineWidth = m.width;
           ctx.strokeStyle = grad as unknown as string;
@@ -237,10 +288,10 @@ export default function GalaxyBackground() {
           ctx.lineTo(ex, ey);
           ctx.stroke();
 
-          // Bright head
-          ctx.shadowBlur = 14;
-          ctx.shadowColor = `hsla(${m.hue}, 100%, 75%, ${alpha})`;
-          ctx.fillStyle = `hsla(${m.hue}, 100%, 87%, ${alpha})`;
+          // Bright head (still very subdued for dark sky)
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = `hsla(${m.hue}, 90%, 55%, ${alpha})`;
+          ctx.fillStyle = `hsla(${m.hue}, 90%, 72%, ${alpha})`;
           ctx.beginPath();
           ctx.arc(px, py, 1.4 * m.width, 0, Math.PI * 2);
           ctx.fill();

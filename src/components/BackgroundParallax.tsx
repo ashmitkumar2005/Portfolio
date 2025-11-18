@@ -38,10 +38,10 @@ export default function BackgroundParallax() {
       {/* Base deepened gradient for higher contrast (fixed) */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#05070f] via-[#060815] to-[#000105]" aria-hidden />
 
-      {/* Soft top glow (parallax) */}
+      {/* Soft top glow (parallax) – neutralized to avoid blue behind navbar */}
       <div
         ref={topGlowRef}
-        className="pointer-events-none absolute inset-x-0 top-[-10%] h-[60vh] -z-10 blur-2xl transform-gpu will-change-transform [background:radial-gradient(60%_60%_at_50%_30%,rgba(59,130,246,0.12),rgba(59,130,246,0.06)_35%,transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-[-10%] h-[60vh] -z-10 blur-2xl transform-gpu will-change-transform"
         aria-hidden
       />
 

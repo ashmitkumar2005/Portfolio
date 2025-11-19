@@ -50,7 +50,7 @@ export default function GalaxyBackground() {
     let animationId: number | null = null;
     let stars: Star[] = [];
     let shooting: ShootingStar[] = [];
-    let snow: SnowFlake[] = [];
+    let snow: SnowFlake[] = []; // we will render only snow
 
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => {
@@ -66,24 +66,9 @@ export default function GalaxyBackground() {
       initSnow();
     };
 
-    const STAR_DENSITY = 0.22; // stars per 1000 px^2 (sparser field for darker sky)
+    const STAR_DENSITY = 0; // disable stars
     const initStars = () => {
-      const areaK = (width * height) / 1000;
-      const count = Math.max(300, Math.floor(areaK * STAR_DENSITY));
-      stars = new Array(count).fill(0).map(() => {
-        const depth = Math.random();
-        return {
-          x: Math.random() * width,
-          y: Math.random() * height,
-          r: Math.max(0.14, Math.pow(Math.random(), 2) * 0.7) * (0.4 + depth * 0.7),
-          baseAlpha: 0.08 + Math.random() * 0.2,
-          phase: Math.random() * Math.PI * 2,
-          twinkle: 0.001 + Math.random() * 0.003, // subtler twinkle
-          depth,
-          vx: (Math.random() - 0.5) * 0.004 * (0.3 + depth), // tinier movement
-          vy: (Math.random() - 0.5) * 0.004 * (0.3 + depth),
-        } as Star;
-      });
+      stars = [];
     };
 
     const initSnow = () => {
@@ -114,6 +99,7 @@ export default function GalaxyBackground() {
 
     // Shooting star helpers
     const spawnShootingStar = () => {
+      return; // disable shooting stars
       // Fixed direction for all stars (down-right ~30°), varied start positions along the left edge
       const margin = 100;
       const startX = -margin;
@@ -142,6 +128,7 @@ export default function GalaxyBackground() {
     };
 
     const drawNebula = () => {
+      return; // disable nebula
       // Soft overlapping radial gradients in blue/cyan tones with additive blending
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
@@ -174,61 +161,19 @@ export default function GalaxyBackground() {
     };
 
     const update = (t: number) => {
-      ctx.clearRect(0, 0, width, height);
+      // Fill pitch-black background each frame
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, width, height);
 
       // Parallax factor (very subtle): background moves slower than content
       const p = lastScrollY;
 
-      // Maybe spawn a shooting star
-      maybeSpawn(t);
+      // Skip shooting stars and stars
+      // maybeSpawn(t); // disabled
 
-      // Draw stars (in layers by depth)
-      for (let i = 0; i < stars.length; i++) {
-        const s = stars[i];
-        s.phase += s.twinkle;
-        s.x += s.vx;
-        s.y += s.vy;
+      // Stars disabled
 
-        // wrap around
-        if (s.x < -5) s.x = width + 5;
-        if (s.x > width + 5) s.x = -5;
-        if (s.y < -5) s.y = height + 5;
-        if (s.y > height + 5) s.y = -5;
-
-        const alpha = Math.max(0, Math.min(1, s.baseAlpha * (0.55 + 0.2 * Math.sin(s.phase))));
-        const px = s.x + p * (0.02 * s.depth);
-        const py = s.y + p * (0.015 * s.depth);
-        // Subtle wobble so every star moves a tiny bit even without drift
-        const wobbleX = Math.sin(s.phase * 0.6 + s.depth * 5) * 0.4;
-        const wobbleY = Math.cos(s.phase * 0.6 + s.depth * 5) * 0.35;
-        // Gentle size pulsation for a breathing effect
-        const pulse = 0.92 + 0.08 * Math.sin(s.phase * 0.9);
-        const r = Math.max(0.12, s.r * pulse);
-
-        ctx.globalAlpha = alpha;
-        ctx.fillStyle = "#7d8fb5";
-        ctx.beginPath();
-        ctx.arc(px + wobbleX, py + wobbleY, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Slight star glint pass for a few stars (very subtle in dark mode)
-      ctx.globalAlpha = 0.1;
-      ctx.strokeStyle = "rgba(120,145,210,0.2)";
-      for (let i = 0; i < stars.length; i += 24) {
-        const s = stars[i];
-        const px = s.x + p * (0.02 * s.depth) + Math.sin(s.phase * 0.6 + s.depth * 5) * 0.4;
-        const py = s.y + p * (0.015 * s.depth) + Math.cos(s.phase * 0.6 + s.depth * 5) * 0.35;
-        ctx.beginPath();
-        ctx.moveTo(px - s.r * 2, py);
-        ctx.lineTo(px + s.r * 2, py);
-        ctx.moveTo(px, py - s.r * 2);
-        ctx.lineTo(px, py + s.r * 2);
-        ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-
-      // Snow layer (above stars, below shooting stars & nebula)
+      // Snow layer (above stars, below overlays)
       for (let i = 0; i < snow.length; i++) {
         const f = snow[i];
         f.phase += 0.01;
@@ -253,8 +198,8 @@ export default function GalaxyBackground() {
       }
       ctx.globalAlpha = 1;
 
-      // Draw/update shooting stars (above stars, below nebula)
-      if (shooting.length) {
+      // Shooting stars disabled
+      if (false) {
         ctx.save();
         ctx.globalCompositeOperation = "lighter";
         for (let i = shooting.length - 1; i >= 0; i--) {
@@ -305,9 +250,7 @@ export default function GalaxyBackground() {
         ctx.restore();
       }
 
-      // Nebula glow
-      nebula.t += nebula.speed;
-      drawNebula();
+      // Nebula disabled
 
       animationId = requestAnimationFrame(update);
     };
@@ -330,7 +273,7 @@ export default function GalaxyBackground() {
     <div
       className={`pointer-events-none fixed inset-0 -z-10 transition-opacity duration-1000 ease-out ${
         ready ? "opacity-100" : "opacity-0"
-      }`}
+      } bg-black`}
       aria-hidden
     >
       <canvas ref={canvasRef} className="w-full h-full block [transform:translateZ(0)]" />

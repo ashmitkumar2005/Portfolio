@@ -86,7 +86,7 @@ export default function ExpandableLogo({ size = 100 }: { size?: number }) {
         }}
       >
         <Image
-          src="/logo.png"
+          src="/logo.svg"
           alt="Ashmit Kumar logo"
           width={displayedImageSize}
           height={displayedImageSize}

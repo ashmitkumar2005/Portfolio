@@ -1,4 +1,3 @@
-import GalaxyBackground from "@/components/GalaxyBackground";
 import localFont from "next/font/local";
 
 const casanova = localFont({
@@ -10,8 +9,6 @@ const casanova = localFont({
 export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-24 md:pt-28">
-      {/* Fullscreen animated galaxy section behind content */}
-      <GalaxyBackground />
 
       <section className="flex flex-col items-center text-center max-w-2xl">
         <h1 className={`${casanova.className} text-5xl font-extrabold tracking-tight mb-3 text-white drop-shadow-[0_0_18px_rgba(37,99,235,0.9)]`}>

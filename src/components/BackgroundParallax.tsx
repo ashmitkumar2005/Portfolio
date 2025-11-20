@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 
 export default function BackgroundParallax() {
+  const heroImageRef = useRef<HTMLDivElement>(null);
   const topGlowRef = useRef<HTMLDivElement>(null);
   const centerHaloRef = useRef<HTMLDivElement>(null);
   const starsRef = useRef<HTMLDivElement>(null);
@@ -16,11 +17,23 @@ export default function BackgroundParallax() {
         window.requestAnimationFrame(() => {
           const y = window.scrollY || window.pageYOffset || 0;
 
-          // 10% of previous factors for very slow background motion
-          if (topGlowRef.current) topGlowRef.current.style.transform = `translateY(${y * 0.01}px)`;
-          if (centerHaloRef.current) centerHaloRef.current.style.transform = `translateY(${y * 0.015}px)`;
-          if (starsRef.current) starsRef.current.style.transform = `translateY(${y * 0.02}px)`;
-          if (blueBandRef.current) blueBandRef.current.style.transform = `translateY(${y * 0.025}px)`;
+          // Hero wallpaper: smooth, subtle parallax (slower than content)
+          if (heroImageRef.current) {
+            const offset = y * -0.15;
+            heroImageRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+          }
+
+          // Top glow: almost fixed (very far back)
+          if (topGlowRef.current) {
+            const offset = y * -0.04;
+            topGlowRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+          }
+
+          // Starfield: in-between layer
+          if (starsRef.current) {
+            const offset = y * -0.09;
+            starsRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+          }
 
           ticking = false;
         });
@@ -35,22 +48,28 @@ export default function BackgroundParallax() {
 
   return (
     <>
-      {/* Base deepened gradient for higher contrast (fixed) */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#05070f] via-[#060815] to-[#000105]" aria-hidden />
+      {/* Base hero image + strong fade to pitch-black (parallax) */}
+      <div
+        ref={heroImageRef}
+        className="pointer-events-none fixed inset-0 -z-20 bg-black will-change-transform"
+        aria-hidden
+        style={{
+          backgroundImage:
+            "linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.85) 75%, #000 100%), url('/back.png')",
+          backgroundPosition: "top center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundColor: "#000",
+        }}
+      />
 
-      {/* Soft top glow (parallax) – neutralized to avoid blue behind navbar */}
+      {/* Soft top glow (parallax) – very subtle above hero */}
       <div
         ref={topGlowRef}
         className="pointer-events-none absolute inset-x-0 top-[-10%] h-[60vh] -z-10 blur-2xl transform-gpu will-change-transform"
         aria-hidden
       />
 
-      {/* Center halo behind hero (parallax) */}
-      <div
-        ref={centerHaloRef}
-        className="pointer-events-none absolute left-0 right-0 top-0 h-[150vh] -z-10 transform-gpu will-change-transform [background:radial-gradient(700px_380px_at_50%_35%,rgba(56,189,248,0.15),rgba(59,130,246,0.08)_40%,transparent_70%)]"
-        aria-hidden
-      />
 
       {/* Starfield (parallax) */}
       <div
@@ -81,16 +100,6 @@ export default function BackgroundParallax() {
         }}
       />
 
-      {/* Blue nebula band (parallax) */}
-      <div
-        ref={blueBandRef}
-        className="pointer-events-none absolute left-0 right-0 top-[120vh] h-[55vh] -z-10 blur-3xl transform-gpu will-change-transform"
-        aria-hidden
-        style={{
-          background:
-            "radial-gradient(65% 55% at 50% 85%, rgba(37,99,235,0.12), rgba(37,99,235,0.06) 45%, transparent 70%)",
-        }}
-      />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import BackgroundParallax from "@/components/BackgroundParallax";
+import GalaxyBackground from "@/components/GalaxyBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-black">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-transparent text-gray-100 relative`}
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-black text-gray-100 relative`}
       >
         <BackgroundParallax />
+        <GalaxyBackground />
         <Navbar />
         {children}
       </body>

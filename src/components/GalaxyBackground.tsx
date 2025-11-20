@@ -42,8 +42,7 @@ export default function GalaxyBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
+    const ctx = canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
 
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
@@ -99,71 +98,23 @@ export default function GalaxyBackground() {
 
     // Shooting star helpers
     const spawnShootingStar = () => {
-      return; // disable shooting stars
-      // Fixed direction for all stars (down-right ~30°), varied start positions along the left edge
-      const margin = 100;
-      const startX = -margin;
-      const startY = Math.random() * height; // different positions
-
-      const angle = 30 * (Math.PI / 180); // fixed direction
-      const speed = 3 + Math.random() * 3; // slow and graceful
-      const vx = Math.cos(angle) * speed;
-      const vy = Math.sin(angle) * speed;
-      const len = 150 + Math.random() * 220;
-      const widthPx = 0.9 + Math.random() * 1.2;
-      const life = 110 + Math.floor(Math.random() * 110); // shorter life to reduce concurrency
-      const hue = 195 + Math.random() * 30; // blue to cyan
-      shooting.push({ x: startX, y: startY, vx, vy, life, maxLife: life, length: len, width: widthPx, hue });
+      // disabled
+      return;
     };
 
     let lastSpawn = 0;
-    const maybeSpawn = (t: number) => {
-      // Reduced overall number: slower spawn and lower concurrent cap
-      const now = t;
-      const interval = 1400 + Math.random() * 1400; // ~1.4–2.8s
-      if (now - lastSpawn > interval && shooting.length < 4) {
-        spawnShootingStar();
-        lastSpawn = now;
-      }
+    const maybeSpawn = (_t: number) => {
+      // disabled
+      return;
     };
 
     const drawNebula = () => {
-      return; // disable nebula
-      // Soft overlapping radial gradients in blue/cyan tones with additive blending
-      ctx.save();
-      ctx.globalCompositeOperation = "lighter";
-
-      const baseX = width * 0.5;
-      const baseY = height * 0.55;
-      const offset = Math.sin(nebula.t) * 30; // slow subtle drift
-      // Very slow scroll parallax for nebula
-      const nx = baseX + lastScrollY * 0.01;
-      const ny = baseY + lastScrollY * 0.008;
-
-      const circles = [
-        { x: nx - 220 + offset * 0.6, y: ny - 120, r: Math.max(width, height) * 0.6, c: "rgba(0,80,160,0.018)" },
-        { x: nx + 160 - offset * 0.4, y: ny + 40, r: Math.max(width, height) * 0.5, c: "rgba(10,70,160,0.02)" },
-        { x: nx, y: ny - 40 + offset * 0.2, r: Math.max(width, height) * 0.7, c: "rgba(0,110,140,0.016)" },
-      ];
-
-      for (const g of circles) {
-        const grad = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r);
-        grad.addColorStop(0, g.c);
-        grad.addColorStop(0.35, g.c);
-        grad.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      ctx.restore();
+      // disabled
     };
 
     const update = (t: number) => {
-      // Fill pitch-black background each frame
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, 0, width, height);
+      // Clear previous frame (keep full transparency so underlying background shows)
+      ctx.clearRect(0, 0, width, height);
 
       // Parallax factor (very subtle): background moves slower than content
       const p = lastScrollY;
@@ -271,9 +222,9 @@ export default function GalaxyBackground() {
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 -z-10 transition-opacity duration-1000 ease-out ${
+      className={`pointer-events-none fixed inset-0 -z-5 transition-opacity duration-1000 ease-out ${
         ready ? "opacity-100" : "opacity-0"
-      } bg-black`}
+      }`}
       aria-hidden
     >
       <canvas ref={canvasRef} className="w-full h-full block [transform:translateZ(0)]" />

@@ -108,7 +108,7 @@ export default function Navbar() {
           transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
         >
           <Link
-            href="mailto:ashmitkumar2005@gmail.com"
+            href="#contact"
             className="group inline-flex items-center gap-2 rounded-full bg-blue-600/95 text-white px-4 py-1.5 font-medium shadow-md transition-colors overflow-hidden"
           >
             <motion.div

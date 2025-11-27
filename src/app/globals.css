@@ -12,6 +12,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,4 +27,152 @@ body {
   background: transparent !important;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hide native cursor everywhere; we render our own custom cursor dot */
+* {
+  cursor: none !important;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  transform: translate3d(-100px, -100px, 0);
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #e5f0ff 55%, #a8c4ff 90%);
+  box-shadow:
+    0 0 14px rgba(229, 240, 255, 0.9),
+    0 0 30px rgba(168, 196, 255, 0.5);
+}
+
+/* Hero cinematic animations */
+
+.hero-parallax-wrapper {
+  will-change: transform;
+  transition: transform 80ms linear;
+}
+
+.hero-text-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-nebula-glow {
+  position: absolute;
+  inset: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(48px);
+  background:
+    radial-gradient(circle at 50% 120%, rgba(120, 160, 255, 0.35), transparent 60%);
+  transition: opacity 900ms ease-out 350ms;
+}
+
+.hero-nebula-glow-active {
+  opacity: 0.25;
+}
+
+.hero-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  text-shadow: none;
+  transition-property: opacity, transform;
+  transition-duration: 950ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-letter-visible {
+  opacity: 1;
+  transform: translateY(0px);
+  animation: hero-letter-glow 450ms ease-out forwards;
+}
+
+@keyframes hero-letter-glow {
+  0% {
+    text-shadow: 0 0 0 rgba(150, 200, 255, 0);
+  }
+  40% {
+    text-shadow: 0 0 10px rgba(150, 200, 255, 0.35);
+  }
+  100% {
+    text-shadow: 0 0 0 rgba(150, 200, 255, 0);
+  }
+}
+
+.hero-tagline {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: contrast(0.9) brightness(0.9) saturate(0.7);
+  transition:
+    opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 650ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 150ms linear;
+}
+
+.hero-tagline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      rgba(180, 210, 255, 0.18) 0,
+      rgba(180, 210, 255, 0.18) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  filter: blur(0.3px);
+}
+
+.hero-tagline-active {
+  opacity: 1;
+  transform: translateY(0px);
+  filter: none;
+}
+
+.hero-tagline-active::before {
+  animation: hero-tagline-dither 150ms ease-out forwards;
+}
+
+@keyframes hero-tagline-dither {
+  0% {
+    opacity: 0.4;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-buttons-wrapper {
+  margin-top: 0.5rem;
+}
+
+.hero-button-shell {
+  opacity: 0;
+  transform: scale(0.93);
+  transition:
+    opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms ease-out;
+}
+
+.hero-button-shell-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-button-shell > a:hover {
+  box-shadow: 0 0 15px rgba(150, 190, 255, 0.25);
 }

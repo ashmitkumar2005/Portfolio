@@ -1,0 +1,35 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Position = {
+  x: number;
+  y: number;
+};
+
+export default function CustomCursor() {
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      setPosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+    };
+  }, []);
+
+  return (
+    <>
+      <div
+        className="custom-cursor-dot"
+        style={{
+          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+        }}
+      />
+    </>
+  );
+}

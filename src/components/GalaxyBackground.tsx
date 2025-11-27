@@ -51,6 +51,10 @@ export default function GalaxyBackground() {
     let shooting: ShootingStar[] = [];
     let snow: SnowFlake[] = []; // we will render only snow
 
+    // Cursor position for interactive snow (in canvas coordinates)
+    let mouseX: number | null = null;
+    let mouseY: number | null = null;
+
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => {
       width = window.innerWidth;
@@ -60,9 +64,20 @@ export default function GalaxyBackground() {
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      // Rebuild stars to match density to area
+      // Rebuild stars and snow to match density to area
       initStars();
       initSnow();
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = event.clientX - rect.left;
+      mouseY = event.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      mouseX = null;
+      mouseY = null;
     };
 
     const STAR_DENSITY = 0; // disable stars
@@ -132,6 +147,7 @@ export default function GalaxyBackground() {
         f.x += f.drift * Math.sin(f.phase);
 
         if (f.y - f.r > height) {
+          // Respawn flake at the top when it leaves the screen
           f.y = -5 - Math.random() * 20;
           f.x = Math.random() * width;
         }
@@ -141,10 +157,28 @@ export default function GalaxyBackground() {
         const px = f.x + p * 0.01;
         const py = f.y + p * 0.008;
 
-        ctx.globalAlpha = 0.22;
-        ctx.fillStyle = "#e5f0ff";
+        // Base snow look
+        let alpha = 0.38; // make flakes more visible
+        let radius = f.r * 1.15; // slightly larger base size
+
+        // If cursor is present, boost flakes near the cursor to simulate denser snow there
+        if (mouseX !== null && mouseY !== null) {
+          const dx = px - mouseX;
+          const dy = py - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          const influenceRadius = 140; // px
+          if (dist < influenceRadius) {
+            const k = 1 - dist / influenceRadius; // 0..1
+            alpha = alpha + 0.32 * k; // stronger brightening near cursor
+            radius = radius * (1 + 0.9 * k); // slightly bigger near cursor
+          }
+        }
+
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = "#ffffff"; // purer white for better contrast
         ctx.beginPath();
-        ctx.arc(px, py, f.r, 0, Math.PI * 2);
+        ctx.arc(px, py, radius, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
@@ -212,11 +246,15 @@ export default function GalaxyBackground() {
 
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       if (animationId) cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 

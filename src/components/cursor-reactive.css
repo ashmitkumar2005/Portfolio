@@ -1,0 +1,97 @@
+/* Cursor reactive hero system */
+
+.parallax-root {
+  position: relative;
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: transform 200ms ease-out;
+}
+
+.parallax-root[data-hover="true"] {
+  transform: scale(1.002);
+}
+
+.parallax-layer {
+  position: relative;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.parallax-layer-bg {
+  pointer-events: none;
+}
+
+.parallax-layer-text {
+  pointer-events: none;
+}
+
+.parallax-layer-ui {
+  pointer-events: auto;
+}
+
+.parallax-cursor-glow {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(
+      circle at var(--cx, 50%) var(--cy, 50%),
+      rgba(180, 210, 255, 0.18) 0%,
+      transparent 40%
+    );
+  transition: opacity 220ms ease-out;
+}
+
+.parallax-root[data-active="true"] .parallax-cursor-glow {
+  opacity: 1;
+}
+
+/* Button ripple + hover (works with existing hero buttons) */
+
+.parallax-button-shell {
+  position: relative;
+  display: inline-block;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.parallax-button-shell[data-press="true"] {
+  transform: translate3d(0, 0, 0) scale(0.98);
+}
+
+.parallax-button-shell[data-hover="true"] {
+  transform: translate3d(0, 0, 0) scale(1.02);
+}
+
+.parallax-button-shell::after {
+  content: "";
+  position: absolute;
+  left: var(--bx, 50%);
+  top: var(--by, 50%);
+  width: 0;
+  height: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(180, 210, 255, 0.35), transparent 70%);
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.parallax-button-shell[data-ripple="true"]::after {
+  animation: parallax-button-ripple 280ms ease-out forwards;
+}
+
+@keyframes parallax-button-ripple {
+  0% {
+    opacity: 0.35;
+    width: 0;
+    height: 0;
+  }
+  100% {
+    opacity: 0;
+    width: 260%;
+    height: 260%;
+  }
+}

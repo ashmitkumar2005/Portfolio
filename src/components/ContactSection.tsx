@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import "./contact-section.css";
 
 type ContactSectionProps = {
   headline?: string;
@@ -54,19 +55,21 @@ export default function ContactSection({
       id="contact"
       className="relative z-20 flex w-full items-center justify-center px-4 sm:px-6 md:px-8 py-16 sm:py-20"
     >
-      <div className="relative w-full max-w-4xl">
-        {/* Outer glow (visible blue halo; fades in) */}
+      <div className="relative w-full max-w-4xl group contact-wrapper">
+        {/* Hover halo outside the card border */}
         <div
-          className={`absolute -inset-[1px] rounded-[32px] bg-[radial-gradient(circle_at_50%_-10%,rgba(59,130,246,0.7),transparent_60%),radial-gradient(circle_at_10%_0%,rgba(96,165,250,0.5),transparent_60%),radial-gradient(circle_at_90%_0%,rgba(59,130,246,0.45),transparent_60%)] blur-3xl transition-opacity duration-900 ease-out ${
-            glowActive ? "opacity-90" : "opacity-0"
-          }`}
+          className="pointer-events-none absolute -inset-[6px] rounded-[38px] bg-[radial-gradient(circle_at_50%_50%,transparent_55%,rgba(34,197,94,0.28)_75%,rgba(22,163,74,0.85)_90%,transparent_100%)] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-[1400ms] ease-out"
           aria-hidden
         />
+
+        <svg className="contact-border-svg" viewBox="0 0 100 100" aria-hidden>
+          <rect x="1.5" y="1.5" width="97" height="97" rx="24" ry="24" />
+        </svg>
 
         {/* Card (fades / slides / scales in) */}
         <div
           ref={cardRef}
-          className={`relative rounded-[32px] border border-white/8 bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black px-6 sm:px-10 py-10 sm:py-14 shadow-[0_25px_60px_rgba(15,23,42,0.9)] backdrop-blur-2xl overflow-hidden transform-gpu transition-all duration-900 ease-out ${
+          className={`relative rounded-[32px] border-[2.5px] border-white/12 group-hover:border-emerald-400 bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black px-6 sm:px-10 py-10 sm:py-14 shadow-[0_25px_60px_rgba(15,23,42,0.9)] backdrop-blur-2xl overflow-hidden transform-gpu transition-all duration-900 ease-out transition-colors ${
             glowActive
               ? "opacity-100 translate-y-0 scale-100"
               : "opacity-0 translate-y-6 scale-95"

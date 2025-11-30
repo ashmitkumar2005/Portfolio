@@ -1,0 +1,34 @@
+.contact-wrapper {
+  position: relative;
+}
+
+.contact-border-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.contact-border-svg rect {
+  fill: transparent;
+  stroke: #22c55e;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+}
+
+.contact-wrapper:hover .contact-border-svg rect {
+  animation: contact-border-draw 1.4s ease-out forwards;
+}
+
+@keyframes contact-border-draw {
+  from {
+    stroke-dashoffset: 320;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

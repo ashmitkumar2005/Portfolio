@@ -74,7 +74,7 @@ export default function BackgroundParallax() {
       {/* Starfield (parallax) */}
       <div
         ref={starsRef}
-        className="pointer-events-none absolute left-0 right-0 top-0 h-[200vh] -z-10 opacity-35 transform-gpu will-change-transform"
+        className="pointer-events-none fixed left-0 right-0 top-0 h-[120vh] -z-10 opacity-35 transform-gpu will-change-transform"
         aria-hidden
         style={{
           backgroundImage:

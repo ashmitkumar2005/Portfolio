@@ -86,17 +86,23 @@ const SnowPileFooter = forwardRef<SnowPileFooterHandle, SnowPileFooterProps>(
     useEffect(() => {
       if (typeof window === "undefined") return;
 
+      let frameId: number | null = null;
       const handleMove = (event: MouseEvent) => {
-        const el = containerRef.current;
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width;
-        const y = (event.clientY - rect.top) / rect.height;
-        if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
-          setMouseUv({ x, y });
-        } else {
-          setMouseUv(null);
-        }
+        if (frameId) return;
+        frameId = requestAnimationFrame(() => {
+          const el = containerRef.current;
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width;
+            const y = (event.clientY - rect.top) / rect.height;
+            if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+              setMouseUv({ x, y });
+            } else {
+              setMouseUv(null);
+            }
+          }
+          frameId = null;
+        });
       };
 
       const handleLeave = () => {
@@ -118,8 +124,8 @@ const SnowPileFooter = forwardRef<SnowPileFooterHandle, SnowPileFooterProps>(
         typeof startDate === "string"
           ? new Date(startDate)
           : startDate instanceof Date
-          ? startDate
-          : DEFAULT_DEPLOYMENT_DATE;
+            ? startDate
+            : DEFAULT_DEPLOYMENT_DATE;
 
       const now = new Date();
       const d = daysSince(baseDate, now);

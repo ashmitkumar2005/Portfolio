@@ -43,7 +43,7 @@ export default function Navbar() {
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">
       <motion.nav
-        className="pointer-events-auto relative w-full max-w-none rounded-full border-[2px] border-white/5 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-4 py-1.5 flex items-center justify-between text-sm text-gray-100"
+        className="pointer-events-auto relative w-full max-w-none rounded-full border-[1.5px] border-white/15 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-4 py-1.5 flex items-center justify-between text-sm text-gray-100"
         animate={{
           paddingTop: 5,
           paddingBottom: 5,
@@ -65,43 +65,43 @@ export default function Navbar() {
           animate={{ x: logoHovered && scrolled ? 122 : 0 }}
           transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
         >
-            <li className="relative">
-              <Link
-                href="#work"
-                onMouseEnter={() => setHovered("work")}
-                onMouseLeave={() => setHovered(null)}
-                className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
-              >
-                {hovered === "work" && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-blue-500/40"
-                    transition={{ type: "spring", stiffness: 500, damping: 40, mass: 1 }}
-                    aria-hidden
-                  />
-                )}
-                <span className="relative font-semibold transition-colors group-hover:text-blue-300">Work</span>
-              </Link>
-            </li>
-            <li className="relative">
-              <Link
-                href="#know-me"
-                onMouseEnter={() => setHovered("know-me")}
-                onMouseLeave={() => setHovered(null)}
-                className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
-              >
-                {hovered === "know-me" && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-blue-500/30"
-                    transition={{ type: "spring", stiffness: 500, damping: 40, mass: 1 }}
-                    aria-hidden
-                  />
-                )}
-                <span className="relative font-semibold transition-colors group-hover:text-blue-300">Know Me</span>
-              </Link>
-            </li>
-          </motion.ul>
+          <li className="relative">
+            <Link
+              href="#work"
+              onMouseEnter={() => setHovered("work")}
+              onMouseLeave={() => setHovered(null)}
+              className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+            >
+              {hovered === "work" && (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0 rounded-full bg-blue-500/40"
+                  transition={{ type: "spring", stiffness: 500, damping: 40, mass: 1 }}
+                  aria-hidden
+                />
+              )}
+              <span className="relative font-semibold transition-colors group-hover:text-blue-300">Work</span>
+            </Link>
+          </li>
+          <li className="relative">
+            <Link
+              href="#know-me"
+              onMouseEnter={() => setHovered("know-me")}
+              onMouseLeave={() => setHovered(null)}
+              className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+            >
+              {hovered === "know-me" && (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0 rounded-full bg-blue-500/30"
+                  transition={{ type: "spring", stiffness: 500, damping: 40, mass: 1 }}
+                  aria-hidden
+                />
+              )}
+              <span className="relative font-semibold transition-colors group-hover:text-blue-300">Know Me</span>
+            </Link>
+          </li>
+        </motion.ul>
 
         <motion.div
           animate={{ x: logoHovered && scrolled ? 122 : 0 }}
@@ -133,7 +133,20 @@ export default function Navbar() {
                 Let’s Connect
               </motion.span>
             </motion.div>
-            <span aria-hidden>↗</span>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
           </Link>
         </motion.div>
       </motion.nav>

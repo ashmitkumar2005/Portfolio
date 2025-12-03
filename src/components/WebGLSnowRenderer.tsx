@@ -103,20 +103,15 @@ const WebGLSnowRenderer: React.FC<WebGLSnowRendererProps> = ({
         float xL = ux - (1.0 / max(cells, 2.0));
         float xR = ux + (1.0 / max(cells, 2.0));
 
-        float n1C = fbm(vec2(xC * 0.6, 1.37));
-        float n2C = fbm(vec2(xC * 1.4, 5.21));
-        float n3C = fbm(vec2(xC * 3.2, 9.91));
-        float bumpC = n1C * 1.8 + n2C * 0.9 + n3C * 0.75;
+        // Simplified bump mapping: single FBM call per sample point instead of 3
+        float nC = fbm(vec2(xC * 2.0, 1.37));
+        float bumpC = nC * 1.5;
 
-        float n1L = fbm(vec2(xL * 0.6, 1.37));
-        float n2L = fbm(vec2(xL * 1.4, 5.21));
-        float n3L = fbm(vec2(xL * 3.2, 9.91));
-        float bumpL = n1L * 1.8 + n2L * 0.9 + n3L * 0.75;
+        float nL = fbm(vec2(xL * 2.0, 1.37));
+        float bumpL = nL * 1.5;
 
-        float n1R = fbm(vec2(xR * 0.6, 1.37));
-        float n2R = fbm(vec2(xR * 1.4, 5.21));
-        float n3R = fbm(vec2(xR * 3.2, 9.91));
-        float bumpR = n1R * 1.8 + n2R * 0.9 + n3R * 0.75;
+        float nR = fbm(vec2(xR * 2.0, 1.37));
+        float bumpR = nR * 1.5;
 
         float heightScale = 0.1;
         float hL_final = (hL + bumpL * 0.02) * heightScale;

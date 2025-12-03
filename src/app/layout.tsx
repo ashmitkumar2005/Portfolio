@@ -55,7 +55,7 @@ export default function RootLayout({
             href="https://github.com/ashmitkumar2005"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-lg hover:bg-white/10 transition-all duration-300 group cursor-pointer hover:scale-105 hover:shadow-blue-500/20"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 backdrop-blur-md shadow-lg hover:bg-white/10 transition-all duration-300 group cursor-pointer hover:scale-105 hover:shadow-blue-500/20"
           >
             <span className="text-sm text-gray-300 tracking-wide">Made with</span>
             <span className="text-red-500 animate-pulse text-lg drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">❤️</span>

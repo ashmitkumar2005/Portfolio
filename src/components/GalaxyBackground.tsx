@@ -86,7 +86,8 @@ export default function GalaxyBackground() {
     };
 
     const initSnow = () => {
-      const count = Math.max(110, Math.floor((width * height) / 21000));
+      // Reduced density for performance
+      const count = Math.max(50, Math.floor((width * height) / 35000));
       snow = new Array(count).fill(0).map(() => {
         const r = 0.45 + Math.random() * 0.85;
         return {
@@ -161,22 +162,11 @@ export default function GalaxyBackground() {
         let alpha = 0.38; // make flakes more visible
         let radius = f.r * 1.15; // slightly larger base size
 
-        // If cursor is present, boost flakes near the cursor to simulate denser snow there
-        if (mouseX !== null && mouseY !== null) {
-          const dx = px - mouseX;
-          const dy = py - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          const influenceRadius = 140; // px
-          if (dist < influenceRadius) {
-            const k = 1 - dist / influenceRadius; // 0..1
-            alpha = alpha + 0.32 * k; // stronger brightening near cursor
-            radius = radius * (1 + 0.9 * k); // slightly bigger near cursor
-          }
-        }
+        // Simplified rendering: removed per-particle mouse distance check for performance
+        // If cursor is present, we could do a simpler global effect or just skip it to save cycles
 
         ctx.globalAlpha = alpha;
-        ctx.fillStyle = "#ffffff"; // purer white for better contrast
+        ctx.fillStyle = "#ffffff";
         ctx.beginPath();
         ctx.arc(px, py, radius, 0, Math.PI * 2);
         ctx.fill();
@@ -260,9 +250,8 @@ export default function GalaxyBackground() {
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 -z-5 transition-opacity duration-1000 ease-out ${
-        ready ? "opacity-100" : "opacity-0"
-      }`}
+      className={`pointer-events-none fixed inset-0 -z-5 transition-opacity duration-1000 ease-out ${ready ? "opacity-100" : "opacity-0"
+        }`}
       aria-hidden
     >
       <canvas ref={canvasRef} className="w-full h-full block [transform:translateZ(0)]" />

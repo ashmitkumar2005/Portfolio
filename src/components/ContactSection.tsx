@@ -69,17 +69,15 @@ export default function ContactSection({
         {/* Card (fades / slides / scales in) */}
         <div
           ref={cardRef}
-          className={`relative rounded-[32px] border-[2.5px] border-transparent group-hover:border-white bg-gradient-to-br from-slate-900/90 via-slate-950/95 to-black px-6 sm:px-10 py-10 sm:py-6 shadow-[0_25px_60px_rgba(15,23,42,0.9)] backdrop-blur-2xl overflow-hidden transform-gpu transition-all duration-900 ease-out transition-colors ${
-            glowActive
+          className={`relative rounded-[32px] border-[2.5px] border-transparent group-hover:border-white bg-gradient-to-br from-slate-900/90 via-slate-950/95 to-black px-6 sm:px-10 py-10 sm:py-6 shadow-[0_25px_60px_rgba(15,23,42,0.9)] backdrop-blur-2xl overflow-hidden transform-gpu transition-all duration-900 ease-out transition-colors ${glowActive
               ? "opacity-100 translate-y-0 scale-100"
               : "opacity-0 translate-y-6 scale-95"
-          }`}
+            }`}
         >
           {/* inner top blue band (fades in on enter) */}
           <div
-            className={`pointer-events-none absolute inset-x-0 -top-32 h-52 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.95),transparent_65%)] mix-blend-screen blur-3xl transition-opacity duration-900 ease-out ${
-              glowActive ? "opacity-100" : "opacity-0"
-            }`}
+            className={`pointer-events-none absolute inset-x-0 -top-32 h-52 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.95),transparent_65%)] mix-blend-screen blur-3xl transition-opacity duration-900 ease-out ${glowActive ? "opacity-100" : "opacity-0"
+              }`}
             aria-hidden
           />
 
@@ -130,7 +128,7 @@ export default function ContactSection({
                 <span className="text-[11px] sm:text-xs font-medium">GitHub</span>
               </a>
               <a
-                href="https://www.linkedin.com/in/ashmit-kumar-92551626b"
+                href="https://www.linkedin.com/in/ashmitkumar2005"
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-col items-center justify-center gap-1 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 hover:border-blue-400/70 hover:bg-blue-500/10 transition-colors"

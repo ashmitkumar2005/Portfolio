@@ -109,6 +109,19 @@ export default function Navbar() {
         >
           <Link
             href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              // @ts-ignore
+              if (window.lenis) {
+                // @ts-ignore
+                window.lenis.scrollTo("#contact", {
+                  duration: 2.0, // Slower, smoother scroll
+                  easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                });
+              } else {
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
             className="group inline-flex items-center gap-2 rounded-full bg-blue-600/95 text-white px-4 py-1.5 font-medium shadow-md transition-colors overflow-hidden"
           >
             <motion.div

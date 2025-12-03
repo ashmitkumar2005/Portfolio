@@ -15,6 +15,10 @@ export default function SmoothScroll() {
       touchMultiplier: 2,
     });
 
+    // Expose lenis to window for global access (e.g. from Navbar)
+    // @ts-ignore
+    window.lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -23,6 +27,8 @@ export default function SmoothScroll() {
     requestAnimationFrame(raf);
 
     return () => {
+      // @ts-ignore
+      window.lenis = null;
       lenis.destroy();
     };
   }, []);

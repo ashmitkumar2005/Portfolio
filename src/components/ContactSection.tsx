@@ -58,7 +58,7 @@ export default function ContactSection({
       <div className="relative w-full max-w-4xl group contact-wrapper">
         {/* Hover halo outside the card border */}
         <div
-          className="pointer-events-none absolute -inset-[6px] rounded-[38px] bg-[radial-gradient(circle_at_50%_50%,transparent_55%,rgba(34,197,94,0.28)_75%,rgba(22,163,74,0.85)_90%,transparent_100%)] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-[1400ms] ease-out"
+          className="pointer-events-none absolute -inset-[6px] rounded-[38px] bg-[radial-gradient(circle_at_50%_50%,transparent_55%,rgba(255,255,255,0.25)_75%,rgba(255,255,255,0.9)_90%,transparent_100%)] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-[1400ms] ease-out"
           aria-hidden
         />
 
@@ -69,7 +69,7 @@ export default function ContactSection({
         {/* Card (fades / slides / scales in) */}
         <div
           ref={cardRef}
-          className={`relative rounded-[32px] border-[2.5px] border-white/12 group-hover:border-emerald-400 bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black px-6 sm:px-10 py-10 sm:py-14 shadow-[0_25px_60px_rgba(15,23,42,0.9)] backdrop-blur-2xl overflow-hidden transform-gpu transition-all duration-900 ease-out transition-colors ${
+          className={`relative rounded-[32px] border-[2.5px] border-transparent group-hover:border-white bg-gradient-to-br from-slate-900/90 via-slate-950/95 to-black px-6 sm:px-10 py-10 sm:py-6 shadow-[0_25px_60px_rgba(15,23,42,0.9)] backdrop-blur-2xl overflow-hidden transform-gpu transition-all duration-900 ease-out transition-colors ${
             glowActive
               ? "opacity-100 translate-y-0 scale-100"
               : "opacity-0 translate-y-6 scale-95"

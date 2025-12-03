@@ -6,6 +6,8 @@ import {
 } from "@/components/HeroAnimations";
 import TypingSubheading from "@/components/TypingSubheading";
 
+import WorkSection from "@/components/WorkSection";
+
 const casanova = localFont({
   src: "./fonts/Crysthel.otf",
   weight: "400",
@@ -20,8 +22,8 @@ const axuno = localFont({
 
 export default function Home() {
   return (
-    <main className="relative w-full h-screen">
-      <section className="w-full h-full flex flex-col items-center justify-center text-center px-4 sm:px-8 md:px-16">
+    <main className="relative w-full min-h-screen">
+      <section className="w-full h-screen flex flex-col items-center justify-center text-center px-4 sm:px-8 md:px-16">
         <h1
           className={`${casanova.className} text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tight mb-4 text-white`}
         >
@@ -57,6 +59,8 @@ export default function Home() {
           </a>
         </AnimatedButtons>
       </section>
+
+      <WorkSection />
     </main>
   );
 }

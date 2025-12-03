@@ -18,9 +18,9 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text }) => {
     text,
   ]);
 
-  const baseDelay = 260;
-  const minStagger = 34;
-  const maxStagger = 52;
+  const baseDelay = 500;
+  const minStagger = 80;
+  const maxStagger = 120;
 
   return (
     <div className="hero-text-wrapper">

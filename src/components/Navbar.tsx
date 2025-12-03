@@ -43,10 +43,10 @@ export default function Navbar() {
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">
       <motion.nav
-        className="pointer-events-auto relative w-full max-w-none rounded-full border-[1.5px] border-white/15 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-4 py-1.5 flex items-center justify-between text-sm text-gray-100"
+        className="pointer-events-auto relative w-full max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-6 py-2 flex items-center justify-between text-sm text-gray-100"
         animate={{
-          paddingTop: 5,
-          paddingBottom: 5,
+          paddingTop: 8,
+          paddingBottom: 8,
           maxWidth: scrolled ? 600 : 1280,
         }}
         transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}

@@ -6,8 +6,6 @@ import BackgroundParallax from "@/components/BackgroundParallax";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import CustomCursor from "@/components/CustomCursor";
 import ContactSection from "@/components/ContactSection";
-import { SmoothScroller } from "@/components/SmoothScroller";
-import { ScrollInertia } from "@/components/ScrollInertia";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,8 +37,6 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-black text-gray-100 relative`}
       >
-        <ScrollInertia />
-        <SmoothScroller />
         <CustomCursor />
         <BackgroundParallax />
         <GalaxyBackground />

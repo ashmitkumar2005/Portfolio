@@ -5,9 +5,9 @@ import React, { useEffect, useRef } from "react";
 export default function BackgroundParallax() {
   const heroImageRef = useRef<HTMLDivElement>(null);
   const topGlowRef = useRef<HTMLDivElement>(null);
-  const centerHaloRef = useRef<HTMLDivElement>(null);
+  // const centerHaloRef = useRef<HTMLDivElement>(null);
   const starsRef = useRef<HTMLDivElement>(null);
-  const blueBandRef = useRef<HTMLDivElement>(null);
+  // const blueBandRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let ticking = false;

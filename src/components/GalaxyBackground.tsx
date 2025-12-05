@@ -2,17 +2,17 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-type Star = {
-  x: number;
-  y: number;
-  r: number;
-  baseAlpha: number;
-  phase: number;
-  twinkle: number;
-  depth: number; // 0..1, for parallax factor
-  vx: number;
-  vy: number;
-};
+// type Star = {
+//   x: number;
+//   y: number;
+//   r: number;
+//   baseAlpha: number;
+//   phase: number;
+//   twinkle: number;
+//   depth: number; // 0..1, for parallax factor
+//   vx: number;
+//   vy: number;
+// };
 
 type ShootingStar = {
   x: number;
@@ -47,13 +47,13 @@ export default function GalaxyBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
     let animationId: number | null = null;
-    let stars: Star[] = [];
-    let shooting: ShootingStar[] = [];
+    // let stars: Star[] = [];
+    const shooting: ShootingStar[] = [];
     let snow: SnowFlake[] = []; // we will render only snow
 
     // Cursor position for interactive snow (in canvas coordinates)
-    let mouseX: number | null = null;
-    let mouseY: number | null = null;
+    // let mouseX: number | null = null;
+    // let mouseY: number | null = null;
 
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => {
@@ -69,20 +69,21 @@ export default function GalaxyBackground() {
       initSnow();
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = event.clientX - rect.left;
-      mouseY = event.clientY - rect.top;
+    const handleMouseMove = () => {
+      if (window.matchMedia("(hover: none)").matches) return;
+      // const rect = canvas.getBoundingClientRect();
+      // mouseX = event.clientX - rect.left;
+      // mouseY = event.clientY - rect.top;
     };
 
     const handleMouseLeave = () => {
-      mouseX = null;
-      mouseY = null;
+      // mouseX = null;
+      // mouseY = null;
     };
 
-    const STAR_DENSITY = 0; // disable stars
+    // const STAR_DENSITY = 0; // disable stars
     const initStars = () => {
-      stars = [];
+      // stars = [];
     };
 
     const initSnow = () => {
@@ -102,10 +103,10 @@ export default function GalaxyBackground() {
     };
 
     // Nebula parameters
-    const nebula = {
-      t: 0,
-      speed: 0.0004,
-    };
+    // const nebula = {
+    //   t: 0,
+    //   speed: 0.0004,
+    // };
 
     let lastScrollY = window.scrollY || 0;
     const onScroll = () => {
@@ -113,22 +114,22 @@ export default function GalaxyBackground() {
     };
 
     // Shooting star helpers
-    const spawnShootingStar = () => {
-      // disabled
-      return;
-    };
+    // const spawnShootingStar = () => {
+    //   // disabled
+    //   return;
+    // };
 
-    let lastSpawn = 0;
-    const maybeSpawn = (_t: number) => {
-      // disabled
-      return;
-    };
+    // const lastSpawn = 0;
+    // const maybeSpawn = (_t: number) => {
+    //   // disabled
+    //   return;
+    // };
 
-    const drawNebula = () => {
-      // disabled
-    };
+    // const drawNebula = () => {
+    //   // disabled
+    // };
 
-    const update = (t: number) => {
+    const update = () => {
       // Clear previous frame (keep full transparency so underlying background shows)
       ctx.clearRect(0, 0, width, height);
 
@@ -159,8 +160,8 @@ export default function GalaxyBackground() {
         const py = f.y + p * 0.008;
 
         // Base snow look
-        let alpha = 0.38; // make flakes more visible
-        let radius = f.r * 1.15; // slightly larger base size
+        const alpha = 0.38; // make flakes more visible
+        const radius = f.r * 1.15; // slightly larger base size
 
         // Simplified rendering: removed per-particle mouse distance check for performance
         // If cursor is present, we could do a simpler global effect or just skip it to save cycles
@@ -231,7 +232,7 @@ export default function GalaxyBackground() {
     };
 
     resize();
-    setReady(true);
+    setTimeout(() => setReady(true), 0);
     animationId = requestAnimationFrame(update);
 
     window.addEventListener("resize", resize);

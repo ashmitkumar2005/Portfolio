@@ -28,7 +28,29 @@
   from {
     stroke-dashoffset: 320;
   }
+
   to {
     stroke-dashoffset: 0;
   }
+}
+
+@keyframes blink {
+
+  0%,
+  70% {
+    background-color: #22c55e;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.8), 0 0 5px rgba(34, 197, 94, 1);
+    opacity: 1;
+  }
+
+  71%,
+  100% {
+    background-color: #4b5563;
+    box-shadow: none;
+    opacity: 1;
+  }
+}
+
+.animate-blink {
+  animation: blink 1.5s infinite;
 }

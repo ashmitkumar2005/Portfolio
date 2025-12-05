@@ -68,7 +68,7 @@ export default function ContactSection({
           <div className="relative flex flex-col items-center text-center z-10">
             {/* Label */}
             <div className="flex items-center gap-2 mb-6">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+              <span className="w-1.5 h-1.5 rounded-full animate-blink" />
               <span className="text-sm font-medium text-gray-400 tracking-wide">Get in Touch</span>
             </div>
 

@@ -16,7 +16,7 @@ export default function SmoothScroll() {
     });
 
     // Expose lenis to window for global access (e.g. from Navbar)
-    // @ts-ignore
+    // @ts-expect-error: Lenis is added to window
     window.lenis = lenis;
 
     function raf(time: number) {
@@ -27,7 +27,7 @@ export default function SmoothScroll() {
     requestAnimationFrame(raf);
 
     return () => {
-      // @ts-ignore
+      // @ts-expect-error: Lenis is added to window
       window.lenis = null;
       lenis.destroy();
     };

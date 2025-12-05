@@ -11,7 +11,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text }) => {
 
   useEffect(() => {
     // Fire once on initial mount
-    setActive(true);
+    setTimeout(() => setActive(true), 0);
   }, []);
 
   const letters = useMemo(() => text.split("").map((ch, index) => ({ ch, index })), [

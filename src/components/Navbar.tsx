@@ -9,6 +9,7 @@ export default function Navbar() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [logoHovered, setLogoHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const textFrontVariants = {
     initial: { y: 0, rotateX: 0 },
@@ -19,6 +20,13 @@ export default function Navbar() {
     initial: { y: "100%", rotateX: 80 },
     hover: { y: 0, rotateX: 0 },
   };
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -47,7 +55,7 @@ export default function Navbar() {
         animate={{
           paddingTop: 8,
           paddingBottom: 8,
-          maxWidth: scrolled ? 600 : 1280,
+          maxWidth: isMobile ? "100%" : (scrolled ? 600 : 1280),
         }}
         transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
       >
@@ -111,9 +119,9 @@ export default function Navbar() {
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              // @ts-ignore
+              // @ts-expect-error: Lenis is added to window
               if (window.lenis) {
-                // @ts-ignore
+                // @ts-expect-error: Lenis is added to window
                 window.lenis.scrollTo("#contact", {
                   duration: 2.0, // Slower, smoother scroll
                   easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -122,10 +130,10 @@ export default function Navbar() {
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }
             }}
-            className="group inline-flex items-center gap-2 rounded-full bg-blue-600/95 text-white px-4 py-1.5 font-medium shadow-md transition-colors overflow-hidden"
+            className="group inline-flex items-center gap-2 rounded-full bg-blue-600/95 text-white p-2 md:px-4 md:py-1.5 font-medium shadow-md transition-colors overflow-hidden"
           >
             <motion.div
-              className="relative h-[1.1rem] flex items-center transform-gpu"
+              className="relative h-[1.1rem] hidden md:flex items-center transform-gpu"
               variants={{}}
               initial="initial"
               whileHover="hover"

@@ -49,7 +49,7 @@ const SnowPileFooter = forwardRef<SnowPileFooterHandle, SnowPileFooterProps>(
       colors = DEFAULT_COLORS,
       meltRatePerDay = 0,
       seedSalt,
-      prefersReducedMotion,
+      // prefersReducedMotion,
       quality = "medium",
       onReady,
     },
@@ -79,7 +79,7 @@ const SnowPileFooter = forwardRef<SnowPileFooterHandle, SnowPileFooterProps>(
       const gl =
         testCanvas.getContext("webgl") ||
         testCanvas.getContext("experimental-webgl");
-      if (!gl) setUseWebGL(false);
+      if (!gl) setTimeout(() => setUseWebGL(false), 0);
     }, []);
 
     // Track mouse position over the footer so the pile can react to cursor
@@ -88,6 +88,7 @@ const SnowPileFooter = forwardRef<SnowPileFooterHandle, SnowPileFooterProps>(
 
       let frameId: number | null = null;
       const handleMove = (event: MouseEvent) => {
+        if (window.matchMedia("(hover: none)").matches) return;
         if (frameId) return;
         frameId = requestAnimationFrame(() => {
           const el = containerRef.current;
@@ -145,7 +146,7 @@ const SnowPileFooter = forwardRef<SnowPileFooterHandle, SnowPileFooterProps>(
         seedSalt,
       });
 
-      setHeightfield(result.heightfield);
+      setTimeout(() => setHeightfield(result.heightfield), 0);
       if (onReady) onReady();
     }, [startDate, dropsPerDay, maxDrops, meltRatePerDay, quality, wind?.strength, wind?.direction, seedSalt, onReady]);
 
@@ -363,7 +364,6 @@ function smoothHeightfield(src: Float32Array, radius: number): Float32Array {
   const n = src.length;
   const dst = new Float32Array(n);
   const r = Math.max(1, radius | 0);
-  const window = 2 * r + 1;
   for (let i = 0; i < n; i++) {
     let sum = 0;
     let count = 0;

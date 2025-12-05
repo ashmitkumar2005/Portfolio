@@ -115,7 +115,9 @@ export const ParallaxWrapper = forwardRef(function ParallaxWrapper(
     if (!el) return;
 
     const reduced = prefersReducedMotionFallback && hasReducedMotion();
-    if (!isEnabled || reduced || ariaMotion === "off") {
+    const isMobile = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
+
+    if (!isEnabled || reduced || ariaMotion === "off" || isMobile) {
       el.style.transform = "translate3d(0,0,0)";
       el.style.setProperty("--cx", "50%");
       el.style.setProperty("--cy", "50%");
@@ -128,7 +130,7 @@ export const ParallaxWrapper = forwardRef(function ParallaxWrapper(
       ...(limits || {}),
     } as ParallaxLimits;
 
-    const state = stateRef.current;
+    // const state = stateRef.current;
     let frameId: number | null = null;
 
     const updateFromNormalized = (nx: number, ny: number) => {
@@ -194,7 +196,7 @@ export const ParallaxWrapper = forwardRef(function ParallaxWrapper(
 
     const step = () => {
       const s = stateRef.current;
-      const now = performance.now();
+      // const now = performance.now();
 
       if (!s.active && idleDriftAmplitude > 0) {
         s.idlePhase += 0.0025 * (1 + intensity);
@@ -295,13 +297,13 @@ export const ParallaxButtonShell: React.FC<ParallaxButtonShellProps> = ({
 
     el.addEventListener("pointerenter", handleEnter);
     el.addEventListener("pointerleave", handleLeave);
-    el.addEventListener("pointerdown", handleDown as any);
+    el.addEventListener("pointerdown", handleDown as unknown as EventListener);
     el.addEventListener("pointerup", handleUp);
 
     return () => {
       el.removeEventListener("pointerenter", handleEnter);
       el.removeEventListener("pointerleave", handleLeave);
-      el.removeEventListener("pointerdown", handleDown as any);
+      el.removeEventListener("pointerdown", handleDown as unknown as EventListener);
       el.removeEventListener("pointerup", handleUp);
     };
   }, []);

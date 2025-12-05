@@ -41,20 +41,32 @@ export default function ExpandableLogo({ size = 100 }: { size?: number }) {
   const textRightPadding = 55; // px right-side padding when expanded
   const expandedTextWidth = spacingBetween + labelWidth + textRightPadding;
 
-    // White outer glow (subtle, with a very thin edge for a crisp non-pixelated pill)
+  // White outer glow (subtle, with a very thin edge for a crisp non-pixelated pill)
   const baseGlow =
     "0 0 0 1px rgba(0, 0, 0, 1), 0 0 6px rgba(255,255,255,0.18)";
   const hoverGlow =
     "0 0 0 1px rgba(0, 0, 0, 1), 0 0 10px rgba(255,255,255,0.35), 0 0 18px rgba(255,255,255,0.25)";
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if device supports hover
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(hover: none)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <motion.div
       ref={containerRef}
       aria-label="A"
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+      onHoverStart={() => !isMobile && setHovered(true)}
+      onHoverEnd={() => !isMobile && setHovered(false)}
+      onFocus={() => !isMobile && setHovered(true)}
+      onBlur={() => !isMobile && setHovered(false)}
       className="inline-flex items-center rounded-full"
       tabIndex={0}
       initial={false}

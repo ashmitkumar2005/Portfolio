@@ -29,7 +29,6 @@ const TypingSubheading: React.FC<TypingSubheadingProps> = ({
   pauseBetween = DEFAULT_PAUSE,
   className,
   glow = true,
-  parallaxDepth = 10,
 }) => {
   const safePhrases = useMemo(() => (phrases && phrases.length ? phrases : [""]), [
     phrases,
@@ -46,7 +45,7 @@ const TypingSubheading: React.FC<TypingSubheadingProps> = ({
 
   // Initial cinematic dissolve before typing starts
   useEffect(() => {
-    setMounted(true);
+    setTimeout(() => setMounted(true), 0);
     const startId = window.setTimeout(() => {
       setStarted(true);
     }, 220); // synced roughly 200–250ms after hero name begins
@@ -86,7 +85,8 @@ const TypingSubheading: React.FC<TypingSubheadingProps> = ({
       const nextLength = display.length + 1;
       const nextText = currentPhrase.slice(0, nextLength);
       const delay = jitter(typingSpeed, 12);
-      setIsTypingBurst(true);
+      // Wrap in timeout to avoid synchronous state update warning
+      setTimeout(() => setIsTypingBurst(true), 0);
       schedule(delay, () => {
         setDisplay(nextText);
         setIsTypingBurst(false);
@@ -112,18 +112,16 @@ const TypingSubheading: React.FC<TypingSubheadingProps> = ({
 
   return (
     <div
-      className={`typing-subheading-wrapper ${mounted ? "typing-subheading-mounted" : ""} ${
-        started ? "typing-subheading-started" : ""
-      } ${glow ? "typing-subheading-glow" : ""} ${className ?? ""}`}
+      className={`typing-subheading-wrapper ${mounted ? "typing-subheading-mounted" : ""} ${started ? "typing-subheading-started" : ""
+        } ${glow ? "typing-subheading-glow" : ""} ${className ?? ""}`}
       style={depthStyle}
       aria-live="polite"
     >
       <span className="typing-subheading-text">
         <span className="typing-subheading-phrase">{display}</span>
         <span
-          className={`typing-subheading-cursor ${
-            started ? "typing-subheading-cursor-visible" : ""
-          } ${isTypingBurst ? "typing-subheading-cursor-typing" : ""}`}
+          className={`typing-subheading-cursor ${started ? "typing-subheading-cursor-visible" : ""
+            } ${isTypingBurst ? "typing-subheading-cursor-typing" : ""}`}
           aria-hidden
         >
           |

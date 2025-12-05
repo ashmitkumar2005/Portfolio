@@ -57,8 +57,8 @@ function relaxAroundCell(
     const left = i > 0 ? field[i - 1] : h;
     const right = i < n - 1 ? field[i + 1] : h;
 
-    let dhL = h - left;
-    let dhR = h - right;
+    const dhL = h - left;
+    const dhR = h - right;
 
     if (dhL <= maxSlope && dhR <= maxSlope) return;
 

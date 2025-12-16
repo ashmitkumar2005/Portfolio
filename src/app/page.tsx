@@ -1,12 +1,13 @@
 import localFont from "next/font/local";
 import {
-  AnimatedButtons,
+
   AnimatedTagline,
   AnimatedText,
 } from "@/components/HeroAnimations";
 import TypingSubheading from "@/components/TypingSubheading";
 
 import WorkSection from "@/components/WorkSection";
+import SocialsSection from "@/components/SocialsSection";
 
 const casanova = localFont({
   src: "./fonts/Crysthel.otf",
@@ -42,25 +43,11 @@ export default function Home() {
           />
         </AnimatedTagline>
 
-        <AnimatedButtons>
-          <a
-            href="https://github.com/ashmitkumar2005"
-            target="_blank"
-            className="px-5 py-2 rounded-xl bg-gray-100 text-gray-900 font-semibold transition-colors duration-200"
-          >
-            GitHub
-          </a>
 
-          <a
-            href="mailto:ashmitkumar2005@gmail.com"
-            className="px-5 py-2 rounded-xl border border-gray-500 text-gray-300 transition-colors duration-200"
-          >
-            Let’s Connect
-          </a>
-        </AnimatedButtons>
       </section>
 
       <WorkSection />
+      <SocialsSection />
     </main>
   );
 }

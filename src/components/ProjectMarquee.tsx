@@ -33,7 +33,7 @@ export default function ProjectMarquee({ repos }: { repos: Repo[] }) {
                 <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-black via-black/80 to-transparent pointer-events-none" />
 
                 <div
-                    className={`flex w-max gap-8 py-8 animate-scroll ${isPaused ? "paused" : ""
+                    className={`flex w-max gap-8 py-8 animate-scroll will-change-transform ${isPaused ? "paused" : ""
                         }`}
                     onMouseEnter={() => setIsPaused(true)}
                     onMouseLeave={() => setIsPaused(false)}

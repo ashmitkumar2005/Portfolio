@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import BackgroundParallax from "@/components/BackgroundParallax";
-import GalaxyBackground from "@/components/GalaxyBackground";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 import CustomCursor from "@/components/CustomCursor";
 import ContactSection from "@/components/ContactSection";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -45,8 +44,7 @@ export default function RootLayout({
       >
         <SmoothScroll />
         <CustomCursor />
-        <BackgroundParallax />
-        <GalaxyBackground />
+        <BackgroundWrapper />
         <Navbar />
         {children}
         <ContactSection />

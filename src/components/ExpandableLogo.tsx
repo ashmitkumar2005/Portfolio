@@ -72,10 +72,14 @@ export default function ExpandableLogo({ size = 100, isMobile: externalIsMobile 
       className="inline-flex items-center rounded-full"
       tabIndex={0}
       initial={false}
-      animate={{
-        boxShadow: hovered ? hoverGlow : baseGlow,
-      }}
-      transition={spring}
+      animate={
+        isMobile
+          ? undefined
+          : {
+            boxShadow: hovered ? hoverGlow : baseGlow,
+          }
+      }
+      transition={isMobile ? { duration: 0 } : spring}
       style={{
         borderRadius: 9999,
         background: "transparent",
@@ -110,11 +114,15 @@ export default function ExpandableLogo({ size = 100, isMobile: externalIsMobile 
       {/* Right: animate only this text container's width from 0 -> expandedTextWidth */}
       <motion.div
         initial={false}
-        animate={{
-          width: hovered ? expandedTextWidth : 0,
-          backgroundColor: hovered ? "rgba(255,255,255,0.02)" : "transparent",
-        }}
-        transition={spring}
+        animate={
+          isMobile
+            ? undefined
+            : {
+              width: hovered ? expandedTextWidth : 0,
+              backgroundColor: hovered ? "rgba(255,255,255,0.02)" : "transparent",
+            }
+        }
+        transition={isMobile ? { duration: 0 } : spring}
         style={{ overflow: "hidden", alignItems: "center" }}
         className="hidden md:flex"
       >

@@ -115,7 +115,8 @@ export default function ExpandableLogo({ size = 100, isMobile: externalIsMobile 
           backgroundColor: hovered ? "rgba(255,255,255,0.02)" : "transparent",
         }}
         transition={spring}
-        style={{ overflow: "hidden", display: "flex", alignItems: "center" }}
+        style={{ overflow: "hidden", alignItems: "center" }}
+        className="hidden md:flex"
       >
         <div style={{ paddingLeft: spacingBetween, paddingRight: textRightPadding }}>
           <motion.span

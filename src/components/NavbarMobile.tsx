@@ -7,21 +7,21 @@ import "@/components/navbar-mobile.css";
 export default function NavbarMobile() {
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">
-            <nav className="pointer-events-auto relative w-full max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-6 py-2 flex items-center justify-between text-sm text-gray-100 mobile-fixed-nav">
-                <Link href="/" className="flex items-center gap-2">
-                    <ExpandableLogo size={40} isMobile={true} />
+            <nav className="pointer-events-auto relative w-auto max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-3 py-2 flex items-center justify-center gap-1 text-sm text-gray-100 mobile-fixed-nav">
+                <Link href="/" className="flex items-center justify-center">
+                    <ExpandableLogo size={32} isMobile={true} />
                 </Link>
 
-                <ul className="flex items-center justify-evenly flex-1 static">
+                <ul className="flex items-center justify-center gap-1 static">
                     <li className="relative">
                         <Link
                             href="#work"
-                            className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+                            className="group relative block px-2 py-1.5 rounded-full text-gray-300 transition-colors"
                         >
                             <span className="block text-gray-300 group-hover:text-blue-300">
                                 <svg
-                                    width="20"
-                                    height="20"
+                                    width="18"
+                                    height="18"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
@@ -38,12 +38,12 @@ export default function NavbarMobile() {
                     <li className="relative">
                         <Link
                             href="#know-me"
-                            className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+                            className="group relative block px-2 py-1.5 rounded-full text-gray-300 transition-colors"
                         >
                             <span className="block text-gray-300 group-hover:text-blue-300">
                                 <svg
-                                    width="20"
-                                    height="20"
+                                    width="18"
+                                    height="18"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
@@ -60,12 +60,12 @@ export default function NavbarMobile() {
                     <li className="relative">
                         <Link
                             href="#arena"
-                            className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+                            className="group relative block px-2 py-1.5 rounded-full text-gray-300 transition-colors"
                         >
                             <span className="block text-gray-300 group-hover:text-blue-300">
                                 <svg
-                                    width="20"
-                                    height="20"
+                                    width="18"
+                                    height="18"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"

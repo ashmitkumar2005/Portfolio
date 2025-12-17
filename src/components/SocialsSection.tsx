@@ -80,7 +80,39 @@ export default function SocialsSection() {
                 </p>
             </div>
 
-            <div className="flex w-full max-w-5xl h-[400px] gap-4">
+            {/* Mobile View: 2-Column Grid */}
+            <div className="grid grid-cols-2 gap-4 w-full max-w-md md:hidden">
+                {socials.map((social) => (
+                    <a
+                        key={social.id}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group relative aspect-square rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.border} ${social.glow}`}
+                    >
+                        {/* Background Gradient */}
+                        <div
+                            className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-20 group-hover:opacity-100 transition-opacity duration-500`}
+                        />
+
+                        {/* Content Container */}
+                        <div className="relative h-full w-full flex flex-col items-center justify-center p-4 gap-3">
+                            {/* Icon */}
+                            <div className="text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                                {social.icon}
+                            </div>
+
+                            {/* Text Label */}
+                            <span className="text-sm font-bold text-white text-center leading-tight">
+                                {social.name}
+                            </span>
+                        </div>
+                    </a>
+                ))}
+            </div>
+
+            {/* Desktop View: Expanding Flex Row */}
+            <div className="hidden md:flex w-full max-w-5xl h-[400px] gap-4">
                 {socials.map((social) => (
                     <motion.a
                         key={social.id}

@@ -82,33 +82,37 @@ export default function SocialsSection() {
 
             {/* Mobile View: 2-Column Grid */}
             <div className="grid grid-cols-2 gap-4 w-full max-w-md md:hidden">
-                {socials.map((social) => (
-                    <a
-                        key={social.id}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`group relative aspect-square rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.border} ${social.glow}`}
-                    >
-                        {/* Background Gradient */}
-                        <div
-                            className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-20 group-hover:opacity-100 transition-opacity duration-500`}
-                        />
+                {socials.map((social, index) => {
+                    const isLastAndOdd = index === socials.length - 1 && socials.length % 2 !== 0;
+                    return (
+                        <a
+                            key={social.id}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.border} ${social.glow} ${isLastAndOdd ? "col-span-2 aspect-[2/1]" : "aspect-square"
+                                }`}
+                        >
+                            {/* Background Gradient */}
+                            <div
+                                className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-20 group-hover:opacity-100 transition-opacity duration-500`}
+                            />
 
-                        {/* Content Container */}
-                        <div className="relative h-full w-full flex flex-col items-center justify-center p-4 gap-3">
-                            {/* Icon */}
-                            <div className="text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-300">
-                                {social.icon}
+                            {/* Content Container */}
+                            <div className="relative h-full w-full flex flex-col items-center justify-center p-4 gap-3">
+                                {/* Icon */}
+                                <div className="text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                                    {social.icon}
+                                </div>
+
+                                {/* Text Label */}
+                                <span className="text-sm font-bold text-white text-center leading-tight">
+                                    {social.name}
+                                </span>
                             </div>
-
-                            {/* Text Label */}
-                            <span className="text-sm font-bold text-white text-center leading-tight">
-                                {social.name}
-                            </span>
-                        </div>
-                    </a>
-                ))}
+                        </a>
+                    );
+                })}
             </div>
 
             {/* Desktop View: Expanding Flex Row */}

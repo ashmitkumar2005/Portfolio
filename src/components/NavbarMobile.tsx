@@ -7,12 +7,12 @@ import "@/components/navbar-mobile.css";
 export default function NavbarMobile() {
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">
-            <nav className="pointer-events-auto relative w-auto max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-3 py-2 flex items-center justify-center gap-[10px] text-sm text-gray-100 mobile-fixed-nav">
+            <nav className="pointer-events-auto relative w-auto max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-3 py-2 flex items-center justify-center gap-[20px] text-sm text-gray-100 mobile-fixed-nav">
                 <Link href="/" className="flex items-center justify-center">
                     <ExpandableLogo size={32} isMobile={true} />
                 </Link>
 
-                <ul className="flex items-center justify-center gap-[10px] static">
+                <ul className="flex items-center justify-center gap-[20px] static">
                     <li className="relative">
                         <Link
                             href="#work"

@@ -57,13 +57,13 @@ export default function Navbar() {
           paddingBottom: 8,
           maxWidth: isMobile ? "100%" : (scrolled ? 750 : 1280),
         }}
-        transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
+        transition={isMobile ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
       >
         <Link
           href="/"
           className="flex items-center gap-2"
-          onMouseEnter={() => setLogoHovered(true)}
-          onMouseLeave={() => setLogoHovered(false)}
+          onMouseEnter={() => !isMobile && setLogoHovered(true)}
+          onMouseLeave={() => !isMobile && setLogoHovered(false)}
         >
           <ExpandableLogo size={40} />
         </Link>
@@ -152,7 +152,7 @@ export default function Navbar() {
         </motion.ul>
 
         <motion.div
-          animate={{ x: logoHovered && scrolled ? 122 : 0 }}
+          animate={{ x: !isMobile && logoHovered && scrolled ? 122 : 0 }}
           transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }}
         >
           <Link

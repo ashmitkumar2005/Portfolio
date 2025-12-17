@@ -66,7 +66,7 @@ function ProjectCard({ repo }: { repo: Repo }) {
         <Link
             href={repo.html_url}
             target="_blank"
-            className="group relative flex flex-col justify-between w-full sm:w-[450px] h-[240px] sm:h-[280px] p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-white/10 to-white/5 border border-white/10 backdrop-blur-md hover:from-white/15 hover:to-white/10 transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_10px_40px_-10px_rgba(59,130,246,0.3)] hover:-translate-y-2 flex-shrink-0"
+            className="group relative flex flex-col justify-between w-full sm:w-[450px] min-h-[240px] h-auto sm:h-[280px] p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-white/10 to-white/5 border border-white/10 backdrop-blur-md hover:from-white/15 hover:to-white/10 transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_10px_40px_-10px_rgba(59,130,246,0.3)] hover:-translate-y-2 flex-shrink-0"
         >
             <div>
                 <div className="flex items-center justify-between mb-4 sm:mb-6">

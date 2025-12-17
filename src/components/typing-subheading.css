@@ -23,13 +23,13 @@
 
 .typing-subheading-text {
   position: relative;
-  display: inline-flex;
-  align-items: baseline;
-  white-space: nowrap;
+  display: inline;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .typing-subheading-phrase {
-  display: inline-block;
+  display: inline;
 }
 
 .typing-subheading-cursor {
@@ -53,9 +53,11 @@
   0% {
     opacity: 1;
   }
+
   40% {
     opacity: 0.25;
   }
+
   100% {
     opacity: 1;
   }

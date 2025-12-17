@@ -33,7 +33,7 @@ export default function Home() {
 
         <AnimatedTagline>
           <TypingSubheading
-            className={`${axuno.className} text-gray-100 text-2xl font-semibold mb-6 leading-relaxed`}
+            className={`${axuno.className} text-gray-100 text-lg sm:text-2xl font-semibold mb-6 leading-relaxed`}
             phrases={[
               "Building things people enjoy using",
               "Turning ideas into immersive experiences",

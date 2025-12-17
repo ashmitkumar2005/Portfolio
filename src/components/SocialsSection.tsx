@@ -90,18 +90,18 @@ export default function SocialsSection() {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.border} ${social.glow} ${isLastAndOdd ? "col-span-2 aspect-[2/1]" : "aspect-square"
+                            className={`group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.border.replace("group-hover:", "")} ${social.glow.replace("group-hover:", "")} ${isLastAndOdd ? "col-span-2 aspect-[2/1]" : "aspect-square"
                                 }`}
                         >
                             {/* Background Gradient */}
                             <div
-                                className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-20 group-hover:opacity-100 transition-opacity duration-500`}
+                                className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-100 transition-opacity duration-500`}
                             />
 
                             {/* Content Container */}
                             <div className="relative h-full w-full flex flex-col items-center justify-center p-4 gap-3">
                                 {/* Icon */}
-                                <div className="text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                                <div className="text-white scale-110 transition-all duration-300">
                                     {social.icon}
                                 </div>
 

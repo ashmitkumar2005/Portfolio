@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 
 const viola = localFont({ src: "../app/fonts/VIOLA.ttf", weight: "400", style: "normal" });
 
-export default function ExpandableLogo({ size = 100 }: { size?: number }) {
+export default function ExpandableLogo({ size = 100, isMobile: externalIsMobile }: { size?: number; isMobile?: boolean }) {
   // Increase the visible logo by 20% compared to the provided `size` prop
   const effectiveSize = Math.round(size * 0.8);
   const [hovered, setHovered] = useState(false);
@@ -47,17 +47,19 @@ export default function ExpandableLogo({ size = 100 }: { size?: number }) {
   const hoverGlow =
     "0 0 0 1px rgba(0, 0, 0, 1), 0 0 10px rgba(255,255,255,0.35), 0 0 18px rgba(255,255,255,0.25)";
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [internalIsMobile, setInternalIsMobile] = useState(false);
+  const isMobile = externalIsMobile ?? internalIsMobile;
 
   useEffect(() => {
+    if (externalIsMobile !== undefined) return;
     // Check if device supports hover
     const checkMobile = () => {
-      setIsMobile(window.matchMedia("(hover: none)").matches);
+      setInternalIsMobile(window.matchMedia("(hover: none)").matches);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [externalIsMobile]);
 
   return (
     <motion.div

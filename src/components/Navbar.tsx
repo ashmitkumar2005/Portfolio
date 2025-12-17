@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ExpandableLogo from "@/components/ExpandableLogo";
 
+import "@/components/navbar-mobile.css";
+
 export default function Navbar() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -51,7 +53,7 @@ export default function Navbar() {
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">
       <motion.nav
-        className="pointer-events-auto relative w-full max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-6 py-2 flex items-center justify-between text-sm text-gray-100"
+        className="pointer-events-auto relative w-full max-w-none rounded-full border-[0.5px] border-white/10 bg-black/20 backdrop-blur supports-[backdrop-filter]:bg-black/10 shadow-md px-6 py-2 flex items-center justify-between text-sm text-gray-100 mobile-fixed-nav"
         animate={{
           paddingTop: 8,
           paddingBottom: 8,
@@ -65,7 +67,7 @@ export default function Navbar() {
           onMouseEnter={() => !isMobile && setLogoHovered(true)}
           onMouseLeave={() => !isMobile && setLogoHovered(false)}
         >
-          <ExpandableLogo size={40} />
+          <ExpandableLogo size={40} isMobile={isMobile} />
         </Link>
 
         <motion.ul

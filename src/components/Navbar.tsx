@@ -78,7 +78,7 @@ export default function Navbar() {
               href="#work"
               onMouseEnter={() => setHovered("work")}
               onMouseLeave={() => setHovered(null)}
-              className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+              className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
             >
               {hovered === "work" && (
                 <motion.span
@@ -102,7 +102,7 @@ export default function Navbar() {
               href="#know-me"
               onMouseEnter={() => setHovered("know-me")}
               onMouseLeave={() => setHovered(null)}
-              className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+              className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
             >
               {hovered === "know-me" && (
                 <motion.span
@@ -126,7 +126,7 @@ export default function Navbar() {
               href="#arena"
               onMouseEnter={() => setHovered("arena")}
               onMouseLeave={() => setHovered(null)}
-              className="group relative px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+              className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
             >
               {hovered === "arena" && (
                 <motion.span

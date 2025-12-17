@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ExpandableLogo from "@/components/ExpandableLogo";
+import NavbarMobile from "@/components/NavbarMobile";
 
 import "@/components/navbar-mobile.css";
 
@@ -49,6 +50,10 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (isMobile) {
+    return <NavbarMobile />;
+  }
 
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex w-full justify-center px-4 pointer-events-none">

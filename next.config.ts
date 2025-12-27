@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   experimental: {
     optimizePackageImports: ["framer-motion"],
+    turbopackUseSystemTlsCerts: true,
   },
 };
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
@@ -22,6 +23,11 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
+const sfPro = localFont({
+  src: "./fonts/SF-Pro-Display-Regular.otf",
+  variable: "--font-sf-pro",
+});
+
 export const metadata: Metadata = {
   title: "Ashmit Kumar – Developer Portfolio",
   description:
@@ -40,7 +46,7 @@ export default function RootLayout({
     <html lang="en" className="bg-black">
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased min-h-screen bg-black text-gray-100 relative`}
+        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${sfPro.variable} antialiased min-h-screen bg-black text-gray-100 relative`}
       >
         <SmoothScroll />
         <CustomCursor />

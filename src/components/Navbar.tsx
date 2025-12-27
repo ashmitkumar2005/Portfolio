@@ -14,6 +14,19 @@ export default function Navbar() {
   const [logoHovered, setLogoHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const elem = document.getElementById(targetId);
+    // @ts-expect-error: Lenis is added to window
+    if (window.lenis && elem) {
+      // @ts-expect-error: Lenis is added to window
+      window.lenis.scrollTo(elem);
+    } else {
+      elem?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const textFrontVariants = {
     initial: { y: 0, rotateX: 0 },
     hover: { y: "-100%", rotateX: -80 },
@@ -86,6 +99,7 @@ export default function Navbar() {
             <li className="relative">
               <Link
                 href="#work"
+                onClick={(e) => handleScroll(e, "#work")}
                 onMouseEnter={() => setHovered("work")}
                 onMouseLeave={() => setHovered(null)}
                 className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
@@ -104,6 +118,7 @@ export default function Navbar() {
             <li className="relative">
               <Link
                 href="#know-me"
+                onClick={(e) => handleScroll(e, "#know-me")}
                 onMouseEnter={() => setHovered("know-me")}
                 onMouseLeave={() => setHovered(null)}
                 className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
@@ -122,6 +137,7 @@ export default function Navbar() {
             <li className="relative">
               <Link
                 href="#arena"
+                onClick={(e) => handleScroll(e, "#arena")}
                 onMouseEnter={() => setHovered("arena")}
                 onMouseLeave={() => setHovered(null)}
                 className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"

@@ -23,6 +23,18 @@ export default function NavbarMobile() {
                         <li key={item.href} className="relative">
                             <Link
                                 href={item.href}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const targetId = item.href.replace("#", "");
+                                    const elem = document.getElementById(targetId);
+                                    // @ts-expect-error: Lenis is added to window
+                                    if (window.lenis && elem) {
+                                        // @ts-expect-error: Lenis is added to window
+                                        window.lenis.scrollTo(elem);
+                                    } else {
+                                        elem?.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                }}
                                 className="group relative block px-2 py-1.5 rounded-full text-gray-300 transition-colors"
                             >
                                 <span className="block text-gray-300 group-hover:text-blue-300">

@@ -7,6 +7,7 @@ import {
 import TypingSubheading from "@/components/TypingSubheading";
 
 import WorkSection from "@/components/WorkSection";
+import KnowMeSection from "@/components/KnowMeSection";
 import SocialsSection from "@/components/SocialsSection";
 import SubtleButton from "@/components/ui/subtle-button";
 
@@ -89,6 +90,7 @@ export default function Home() {
 
       </section>
 
+      <KnowMeSection />
       <WorkSection />
       <SocialsSection />
     </main>

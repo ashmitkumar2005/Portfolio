@@ -61,6 +61,22 @@ export default function SubtleButton({
                 }}
                 onMouseDown={() => setIsPressed(true)}
                 onMouseUp={() => setIsPressed(false)}
+                onClick={(e) => {
+                    if (href.startsWith("#")) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            // @ts-expect-error: Lenis is added to window
+                            if (window.lenis) {
+                                // @ts-expect-error: Lenis is added to window
+                                window.lenis.scrollTo(targetElement);
+                            } else {
+                                targetElement.scrollIntoView({ behavior: "smooth" });
+                            }
+                        }
+                    }
+                }}
             >
                 {content}
             </a>

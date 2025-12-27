@@ -103,7 +103,7 @@ export default function SocialsSection() {
             .then(data => {
                 if (data?.total) {
                     const currentYear = new Date().getFullYear();
-                    const total = Object.values(data.total).reduce((a: number, b: number) => a + b, 0) as number;
+                    const total = (Object.values(data.total) as number[]).reduce((a: number, b: number) => a + b, 0);
                     const currentYearCount = data.total[currentYear] || 0;
 
                     // Get last ~126 days (18 weeks) for the heatmap
@@ -135,6 +135,7 @@ export default function SocialsSection() {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`Visit my ${social.name} profile`}
                             className={`group relative rounded-3xl bg-transparent backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.glow.replace("group-hover:", "")} ${isLastAndOdd ? "col-span-2 aspect-[2/1]" : "aspect-square"
                                 }`}
                         >
@@ -231,6 +232,7 @@ export default function SocialsSection() {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Visit my ${social.name} profile`}
                         className={`group relative flex-1 rounded-3xl bg-transparent backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-500 ease-out ${social.glow}`}
                         onMouseEnter={() => setHovered(social.id)}
                         onMouseLeave={() => setHovered(null)}

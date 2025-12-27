@@ -29,11 +29,33 @@ const sfPro = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ashmit Kumar – Developer Portfolio",
-  description:
-    "I’m Ashmit, a developer crafting intelligent, beautiful web experiences with Next.js, React, and AI.",
+  title: "Ashmit Kumar | AI & ML Engineer",
+  description: "I’m Ashmit, a developer crafting intelligent, beautiful web experiences with Next.js, React, and AI.",
   icons: {
     icon: "/logo.png",
+  },
+  openGraph: {
+    title: "Ashmit Kumar | AI & ML Engineer",
+    description: "Building robust, production-grade systems with a focus on AI & ML.",
+    url: "https://portfolio-ashmit.vercel.app", // Assuming URL or placeholder
+    siteName: "Ashmit Kumar Portfolio",
+    images: [
+      {
+        url: "/opengraph-image.png", // Next.js automatically handles opengraph-image.tsx
+        width: 1200,
+        height: 630,
+        alt: "Ashmit Kumar Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ashmit Kumar | AI & ML Engineer",
+    description: "Building robust, production-grade systems with a focus on AI & ML.",
+    images: ["/opengraph-image.png"], // Next.js auto-generates this route
+    creator: "@ashmitkumar2005", // Placeholder handle
   },
 };
 

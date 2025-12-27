@@ -79,6 +79,8 @@ export default function KnowMeSection() {
                             viewport={{ once: true }}
                             className="w-full bg-transparent rounded-[40px] p-8 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.4)]"
                             data-particle-target
+                            role="article"
+                            aria-label="About Me Bio"
                         >
                             <div className="text-base sm:text-lg text-gray-300 leading-relaxed text-left space-y-6">
                                 <p className="font-bold text-white">
@@ -137,6 +139,8 @@ function StepCard({ step, index, total }: { step: { title: string; desc: string 
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="flex flex-col h-full bg-transparent rounded-[40px] p-6 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.4)]"
                 data-particle-target
+                role="article"
+                aria-label={`Step ${index + 1}: ${step.title}`}
             >
                 <div className="text-4xl font-bold text-white/30 mb-4 font-mono select-none">
                     0{index + 1}

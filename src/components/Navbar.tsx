@@ -98,30 +98,12 @@ export default function Navbar() {
           >
             <li className="relative">
               <Link
-                href="#work"
-                onClick={(e) => handleScroll(e, "#work")}
-                onMouseEnter={() => setHovered("work")}
-                onMouseLeave={() => setHovered(null)}
-                className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
-              >
-                {hovered === "work" && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-blue-500/40"
-                    transition={{ type: "spring", stiffness: 500, damping: 40, mass: 1 }}
-                    aria-hidden
-                  />
-                )}
-                <span className="relative font-semibold transition-colors group-hover:text-blue-300">Work</span>
-              </Link>
-            </li>
-            <li className="relative">
-              <Link
                 href="#know-me"
                 onClick={(e) => handleScroll(e, "#know-me")}
                 onMouseEnter={() => setHovered("know-me")}
                 onMouseLeave={() => setHovered(null)}
                 className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+                aria-label="Navigate to Know Me section"
               >
                 {hovered === "know-me" && (
                   <motion.span
@@ -132,6 +114,26 @@ export default function Navbar() {
                   />
                 )}
                 <span className="relative font-semibold transition-colors group-hover:text-blue-300">Know Me</span>
+              </Link>
+            </li>
+            <li className="relative">
+              <Link
+                href="#work"
+                onClick={(e) => handleScroll(e, "#work")}
+                onMouseEnter={() => setHovered("work")}
+                onMouseLeave={() => setHovered(null)}
+                className="group relative block px-3 py-1.5 rounded-full text-gray-300 transition-colors"
+                aria-label="Navigate to Work section"
+              >
+                {hovered === "work" && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-full bg-blue-500/40"
+                    transition={{ type: "spring", stiffness: 500, damping: 40, mass: 1 }}
+                    aria-hidden
+                  />
+                )}
+                <span className="relative font-semibold transition-colors group-hover:text-blue-300">Work</span>
               </Link>
             </li>
             <li className="relative">

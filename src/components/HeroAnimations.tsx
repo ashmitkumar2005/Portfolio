@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type AnimatedTextProps = {
   text: string;
@@ -71,32 +72,24 @@ type AnimatedButtonsProps = {
 };
 
 export const AnimatedButtons: React.FC<AnimatedButtonsProps> = ({ children }) => {
-  const [active, setActive] = useState(false);
-
-  // Start after tagline: name(0) + 250ms + tagline duration (~650ms)
-  useEffect(() => {
-    const id = window.setTimeout(() => setActive(true), 1320);
-    return () => window.clearTimeout(id);
-  }, []);
-
   const items = React.Children.toArray(children);
-  const baseDelay = 80;
-  const stagger = 180;
 
   return (
-    <div className="flex gap-4 justify-center hero-buttons-wrapper">
-      {items.map((child, index) => {
-        const delay = baseDelay + stagger * index;
-        return (
-          <div
-            key={index}
-            className={`hero-button-shell ${active ? "hero-button-shell-active" : ""}`}
-            style={{ transitionDelay: `${delay}ms` }}
-          >
-            {child}
-          </div>
-        );
-      })}
+    <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10 sm:mt-12">
+      {items.map((child, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1.2, // Slow fade as requested
+            delay: 2.0 + (index * 0.2), // Wait for header (approx 2s) + stagger
+            ease: "easeOut"
+          }}
+        >
+          {child}
+        </motion.div>
+      ))}
     </div>
   );
 };

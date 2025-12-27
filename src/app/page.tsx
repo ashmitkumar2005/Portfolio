@@ -3,6 +3,7 @@ import {
 
   AnimatedTagline,
   AnimatedText,
+  AnimatedButtons,
 } from "@/components/HeroAnimations";
 import TypingSubheading from "@/components/TypingSubheading";
 
@@ -45,7 +46,7 @@ export default function Home() {
           />
         </AnimatedTagline>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10 sm:mt-12">
+        <AnimatedButtons>
           <SubtleButton href="#">
             Resume
             <svg
@@ -85,7 +86,7 @@ export default function Home() {
               <line x1="8" y1="12" x2="16" y2="12" />
             </svg>
           </SubtleButton>
-        </div>
+        </AnimatedButtons>
 
 
       </section>

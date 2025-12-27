@@ -98,7 +98,7 @@ export default function SocialsSection() {
     }, [leetCodeLines.length]);
 
     useEffect(() => {
-        fetch("https://github-contributions-api.jogruber.de/v4/ashmitkumar2005")
+        fetch(`https://github-contributions-api.jogruber.de/v4/ashmitkumar2005?t=${Date.now()}`)
             .then(res => res.json())
             .then(data => {
                 if (data?.total) {

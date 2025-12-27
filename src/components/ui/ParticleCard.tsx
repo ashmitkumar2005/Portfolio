@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 
 interface Particle {
     x: number;
@@ -39,8 +39,7 @@ export const ParticleCard = ({ children, className = "", particleCount = 200 }: 
         let targets: TargetInfo[] = [];
 
         // Configuration
-        const BORDER_PARTICLE_COUNT = 300; // Force this many particles to form the border. High density.
-        const BORDER_RADIUS = 12; // Matches rounded-xl
+        const BORDER_RADIUS = 40; // Matches rounded-[40px]
         const RECRUIT_SPEED = 0.12; // Faster snap
         const RELEASE_SPEED = 0.05; // Slower release
 
@@ -97,7 +96,10 @@ export const ParticleCard = ({ children, className = "", particleCount = 200 }: 
 
         // Robust SDF Nearest Point on Rounded Rect
         const getNearestBorderPoint = (px: number, py: number, t: TargetInfo["relativeRect"]) => {
-            const r = BORDER_RADIUS;
+            // Clamp radius to ensure it doesn't exceed half the dimensions
+            const effectiveRadius = Math.min(BORDER_RADIUS, t.width / 2, t.height / 2);
+
+            const r = effectiveRadius;
             const halfInnerW = (t.width / 2) - r;
             const halfInnerH = (t.height / 2) - r;
 
@@ -181,25 +183,29 @@ export const ParticleCard = ({ children, className = "", particleCount = 200 }: 
             particles.forEach(p => p.isActive = false);
 
             if (activeTarget) {
-                // Determine distances
+                // Determine distances to the BORDER (active target perimeter), not the center.
+                // This ensures uniform recruitment even for very wide cards.
                 const withDist = particles.map((p, i) => {
-                    const dx = p.x - activeTarget!.relativeRect.cx;
-                    const dy = p.y - activeTarget!.relativeRect.cy;
+                    const borderPt = getNearestBorderPoint(p.x, p.y, activeTarget!.relativeRect);
+                    const dx = p.x - borderPt.x;
+                    const dy = p.y - borderPt.y;
+                    // distSq to the nearest point on the border
                     return { index: i, distSq: dx * dx + dy * dy };
                 });
 
-                // Sort by distance (closest first)
-                // Optimization: Partial sort or just sort all (1000 items is cheap)
+                // Sort by distance to border (closest first)
                 withDist.sort((a, b) => a.distSq - b.distSq);
 
-                // Recruit top N
-                // We recruit slightly more than needed to account for density
-                const recruitCount = Math.min(BORDER_PARTICLE_COUNT, particles.length);
+                // Recruit based on perimeter for consistent density
+                const perimeter = (activeTarget.relativeRect.width + activeTarget.relativeRect.height) * 2;
+                // Density: Increased for sharper line (was 3.0)
+                const targetCount = Math.floor(perimeter / 2.5);
+                const recruitCount = Math.min(targetCount, particles.length);
 
                 for (let i = 0; i < recruitCount; i++) {
                     const pIdx = withDist[i].index;
                     particles[pIdx].isActive = true;
-                    // Calculate target position on border
+                    // Recalculate target with dynamic radius
                     const borderPt = getNearestBorderPoint(particles[pIdx].x, particles[pIdx].y, activeTarget.relativeRect);
                     particles[pIdx].targetX = borderPt.x;
                     particles[pIdx].targetY = borderPt.y;
@@ -216,9 +222,9 @@ export const ParticleCard = ({ children, className = "", particleCount = 200 }: 
                     destX = p.targetX!;
                     destY = p.targetY!;
 
-                    // Add micro-jitter for organic border look
-                    destX += (Math.random() - 0.5) * 2;
-                    destY += (Math.random() - 0.5) * 2;
+                    // Tighter jitter for cleaner lines (was 2)
+                    destX += (Math.random() - 0.5) * 1.5;
+                    destY += (Math.random() - 0.5) * 1.5;
 
                     speed = RECRUIT_SPEED;
                 } else {
@@ -292,7 +298,7 @@ export const ParticleCard = ({ children, className = "", particleCount = 200 }: 
             container.removeEventListener("mouseleave", handleMouseLeave);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [particleCount]);
 
     return (
         <div

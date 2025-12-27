@@ -1,41 +1,14 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { ParticleCard } from "./ui/ParticleCard";
 
-const bioPart1 = [
-    { text: "AI", highlight: true },
-    { text: "&", highlight: true },
-    { text: "ML", highlight: true },
-    { text: "Engineering", highlight: true },
-    { text: "student", highlight: false },
-    { text: "building", highlight: false },
-    { text: "robust,", highlight: false },
-    { text: "production-grade", highlight: true },
-    { text: "systems,", highlight: true },
-    { text: "prioritizing", highlight: false },
-    { text: "real-world", highlight: false },
-    { text: "impact", highlight: false },
-    { text: "over", highlight: false },
-    { text: "academic", highlight: false },
-    { text: "demos.", highlight: false },
-];
-
-const bioPart2 = [
-    { text: "Deeply", highlight: false },
-    { text: "curious", highlight: false },
-    { text: "about", highlight: false },
-    { text: "system", highlight: true },
-    { text: "internals", highlight: true },
-    { text: "and", highlight: false },
-    { text: "architecture,", highlight: true },
-    { text: "mastering", highlight: false },
-    { text: "scalability,", highlight: true },
-    { text: "data", highlight: true },
-    { text: "flow,", highlight: true },
-    { text: "and", highlight: false },
-    { text: "failure", highlight: true },
-    { text: "patterns.", highlight: true },
+const keyStrengths = [
+    "Early hands-on experience with computers and software environments",
+    "Strong independent learning ability and technical discipline",
+    "Comfort with complexity and unfamiliar problem spaces",
+    "Systems-oriented thinking developed through practical exploration",
+    "Long-term focus on growth, not shortcuts",
 ];
 
 const containerVariants = {
@@ -46,54 +19,32 @@ const containerVariants = {
     },
 };
 
-const wordVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            type: "spring" as const,
-            damping: 15,
-            stiffness: 150,
-        },
-    },
-};
+
 
 const steps = [
     {
-        title: "Understand the Core",
-        desc: "I begin by understanding the fundamental concepts behind a problem — including data flow, constraints, trade-offs, and potential failure points — before relying on tools or frameworks.",
+        title: "Idea-First Exploration",
+        desc: "I start with a concrete project idea aligned to the technology I want to master, ensuring every concept I learn serves a real and practical purpose.",
     },
     {
-        title: "Build from Scratch",
-        desc: "Once the core idea is clear, I build a minimal version from scratch. This helps me understand what abstractions hide and how each component actually works.",
+        title: "Blueprint & Planning",
+        desc: "Before writing code, I design the project’s structure — defining core features, architecture, and learning checkpoints to enforce clarity before execution.",
     },
     {
-        title: "Test Failure & Edge Cases",
-        desc: "I intentionally test edge cases, limitations, and failure scenarios to see how the system behaves under real-world conditions, not just ideal ones.",
+        title: "AI-Assisted Scaffolding",
+        desc: "I use AI to accelerate initial setup, while consciously reviewing and understanding every generated component instead of treating it as a shortcut.",
     },
     {
-        title: "Refine and Document",
-        desc: "Finally, I optimize the solution, clean up the design, and document decisions clearly so the system is maintainable and understandable for others.",
+        title: "Iterative Building & Learning",
+        desc: "I develop the project step by step, learning deeply through implementation, refinement, and problem-solving at each stage.",
+    },
+    {
+        title: "Review, Refinement & Ownership",
+        desc: "I finalize projects by cleaning the codebase, improving structure, and revisiting decisions so the outcome reflects engineering discipline, not just completion.",
     },
 ];
 
 export default function KnowMeSection() {
-    const ref = useRef<HTMLDivElement>(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
-    const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
-
-    function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-        const { left, top } = currentTarget.getBoundingClientRect();
-        x.set(clientX - left);
-        y.set(clientY - top);
-    }
-
-    const maskImage = useMotionTemplate`radial-gradient(200px at ${mouseX}px ${mouseY}px, white, transparent)`;
-    const style = { maskImage, WebkitMaskImage: maskImage };
 
     return (
         <section id="know-me" className="relative z-10 w-full pt-16 pb-40 sm:pt-20 sm:pb-48 font-sf">
@@ -119,40 +70,33 @@ export default function KnowMeSection() {
                         </motion.div>
                     </div>
 
-                    {/* Bio Text */}
-                    <div className="flex justify-center mb-8 relative z-10">
-                        <div className="max-w-4xl">
-                            <motion.div
-                                variants={containerVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                                className="text-base sm:text-lg text-gray-300 leading-normal space-y-4 font-light text-center"
-                            >
-                                <p className="flex flex-wrap justify-center gap-x-2 gap-y-1">
-                                    {bioPart1.map((word, index) => (
-                                        <motion.span
-                                            variants={wordVariants}
-                                            key={index}
-                                            className={word.highlight ? "text-white font-medium" : "transition-colors group-hover:text-gray-200"}
-                                        >
-                                            {word.text}
-                                        </motion.span>
-                                    ))}
+                    {/* Bio Text Card */}
+                    <div className="flex justify-center mb-8 relative z-10 w-full mx-auto">
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="w-full bg-transparent rounded-[40px] p-8 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.4)]"
+                            data-particle-target
+                        >
+                            <div className="text-base sm:text-lg text-gray-300 leading-relaxed text-left space-y-6">
+                                <p className="font-bold text-white">
+                                    I’m an AI & ML Engineering student who grew into technology through early exposure to computers and continuous self-driven exploration. This background shaped a strong technical intuition and a deep interest in how systems behave in real-world conditions. I value long-term skill building, consistency, and understanding fundamentals that scale with experience.
                                 </p>
-                                <p className="flex flex-wrap justify-center gap-x-2 gap-y-1">
-                                    {bioPart2.map((word, index) => (
-                                        <motion.span
-                                            variants={wordVariants}
-                                            key={index}
-                                            className={word.highlight ? "text-white font-medium" : "transition-colors group-hover:text-gray-200"}
-                                        >
-                                            {word.text}
-                                        </motion.span>
-                                    ))}
-                                </p>
-                            </motion.div>
-                        </div>
+                                <div>
+                                    <h4 className="text-white font-medium mb-3">Key strengths:</h4>
+                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
+                                        {keyStrengths.map((strength, index) => (
+                                            <li key={index} className="flex items-start gap-2 text-sm sm:text-base text-gray-400">
+                                                <span className="text-blue-500 mt-1">▹</span>
+                                                {strength}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
 
                     {/* Divider */}
@@ -166,10 +110,10 @@ export default function KnowMeSection() {
                             viewport={{ once: true }}
                             className="text-xl sm:text-2xl font-bold text-white mb-8 text-center"
                         >
-                            My 4-Step Learning Approach
+                            My Learning Approach
                         </motion.h3>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full relative">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 w-full relative">
                             {steps.map((step, index) => (
                                 <StepCard key={index} step={step} index={index} total={steps.length} />
                             ))}
@@ -191,7 +135,7 @@ function StepCard({ step, index, total }: { step: { title: string; desc: string 
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="flex flex-col h-full bg-transparent rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.4)]"
+                className="flex flex-col h-full bg-transparent rounded-[40px] p-6 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.4)]"
                 data-particle-target
             >
                 <div className="text-4xl font-bold text-white/30 mb-4 font-mono select-none">

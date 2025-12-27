@@ -49,19 +49,9 @@ export default function RootLayout({
         {children}
         <ContactSection />
         <footer className={`mt-16 mb-8 text-center relative z-10 ${outfit.className}`}>
-          <a
-            href="https://github.com/ashmitkumar2005"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 backdrop-blur-md shadow-lg hover:bg-white/10 transition-all duration-300 group cursor-pointer hover:scale-105 hover:shadow-blue-500/20"
-          >
-            <span className="text-sm text-gray-300 tracking-wide">Made with</span>
-            <span className="text-red-500 animate-pulse text-lg drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">❤️</span>
-            <span className="text-sm text-gray-300 tracking-wide">by</span>
-            <span className="text-sm font-semibold bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-              Ashmit Kumar
-            </span>
-          </a>
+          <p className="text-xs text-white/40 uppercase tracking-widest font-light hover:text-white/60 transition-colors">
+            Copyright &copy; {new Date().getFullYear()} Ashmit Kumar. All Rights Reserved.
+          </p>
         </footer>
       </body>
     </html>

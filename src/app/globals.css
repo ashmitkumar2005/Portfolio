@@ -181,3 +181,54 @@ body {
     margin: 0 !important;
   }
 }
+
+/* Glass Button Styles */
+.glass-button-wrap {
+  position: relative;
+  display: inline-block;
+  z-index: 10;
+  transition: transform 0.2s ease-out;
+}
+
+.glass-button-wrap:active {
+  transform: scale(0.95);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  color: #fff;
+}
+
+.glass-button-text {
+  z-index: 20;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.3s ease;
+}
+
+.glass-button:hover .glass-button-text {
+  color: #fff;
+}
+
+.glass-button-shadow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 100%, rgba(120, 119, 198, 0.4), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+  transform: translateY(4px);
+}
+
+.glass-button-wrap:hover .glass-button-shadow {
+  opacity: 1;
+}
+
+.glass-button-wrap:hover .glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}

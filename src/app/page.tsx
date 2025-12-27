@@ -8,6 +8,7 @@ import TypingSubheading from "@/components/TypingSubheading";
 
 import WorkSection from "@/components/WorkSection";
 import SocialsSection from "@/components/SocialsSection";
+import SubtleButton from "@/components/ui/subtle-button";
 
 const casanova = localFont({
   src: "./fonts/Crysthel.otf",
@@ -42,6 +43,48 @@ export default function Home() {
             ]}
           />
         </AnimatedTagline>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10 sm:mt-12">
+          <SubtleButton href="#">
+            Resume
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform group-hover:translate-x-0.5"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+          </SubtleButton>
+
+          <SubtleButton href="#work">
+            My Work
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform group-hover:translate-x-0.5"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 16 16 12 12 8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </SubtleButton>
+        </div>
 
 
       </section>

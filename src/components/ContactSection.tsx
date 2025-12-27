@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import "./contact-section.css";
+import SubtleButton from "@/components/ui/subtle-button";
 
 type ContactSectionProps = {
   headline?: string;
@@ -14,19 +15,11 @@ export default function ContactSection({
   subheading = "Open to full time roles, project collabs, or conversations.",
   email = "ashmitkumar2005@gmail.com",
 }: ContactSectionProps) {
-  const [copied, setCopied] = useState(false);
+  // const [copied, setCopied] = useState(false); // Removed as per request
   const [glowActive, setGlowActive] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      setCopied(false);
-    }
-  };
+  // const handleCopy = async () => ... // Removed as per request
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -80,62 +73,51 @@ export default function ContactSection({
               {subheading}
             </p>
 
-            {/* Email Input & Button */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-xl mx-auto mb-16">
-              <div className="flex-1 flex items-center justify-between w-full bg-white/5 border border-white/10 rounded-full px-6 py-4 transition-colors hover:bg-white/10 group/input">
-                <div className="flex items-center gap-3 text-gray-300">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect width="20" height="16" x="2" y="4" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                  <span className="text-base sm:text-lg font-medium">{email}</span>
-                </div>
+            {/* Buttons Row */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-xl mx-auto mb-16 px-4">
+              <SubtleButton
+                href="https://topmate.io/ashmitkumar2005"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                Connect 1:1
                 <svg
-                  width="16"
-                  height="16"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-gray-500 group-hover/input:text-white transition-colors transform group-hover/input:translate-x-0.5 group-hover/input:-translate-y-0.5"
+                  className="group-hover:translate-x-1 transition-transform duration-300"
                 >
-                  <path d="M7 17L17 7" />
-                  <path d="M7 7h10v10" />
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
                 </svg>
-              </div>
+              </SubtleButton>
 
-              <button
-                onClick={handleCopy}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-medium px-8 py-4 rounded-full transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] active:scale-95 whitespace-nowrap"
+              <SubtleButton
+                href={`mailto:${email}`}
+                className="w-full sm:w-auto"
               >
-                <span>{copied ? "Copied!" : "Copy Email"}</span>
-                {!copied && (
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                  </svg>
-                )}
-              </button>
+                Mail Me
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="group-hover:translate-x-1 transition-transform"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </SubtleButton>
             </div>
 
             {/* Social Icons Row */}

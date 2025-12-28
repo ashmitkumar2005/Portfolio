@@ -47,7 +47,7 @@ export default function Home() {
         </AnimatedTagline>
 
         <AnimatedButtons>
-          <SubtleButton href="#">
+          <SubtleButton href="https://drive.google.com/file/d/1eg1fr1Qv4DKUHBTAukjwgP0KFq7kfmMP/view?usp=sharing" target="_blank" rel="noopener noreferrer">
             Resume
             <svg
               width="16"

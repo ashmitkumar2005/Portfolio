@@ -1,4 +1,4 @@
-# ✨ Developer Portfolio of Ashmit Kumar
+#  Developer Portfolio of Ashmit Kumar
 
 A high-performance, visually stunning developer portfolio built with the latest web technologies. This project showcases a blend of interactive 3D elements, sleek glassmorphism, and a seamless user experience.
 
@@ -8,12 +8,12 @@ A high-performance, visually stunning developer portfolio built with the latest 
 <img width="1904" height="1080" alt="Screenshot_20251228_184630" src="https://github.com/user-attachments/assets/97f734a4-f632-4bf0-9430-b1819d6285c7" />
 
 
-## 🚀 Experience the Magic
+##  Experience the Magic
 
 - **Live Site**: [ashmit-kumar.vercel.app](https://ashmit-kumar.vercel.app)
 - **Tech Stack**: Next.js 16 (Turbopack), React 19, Tailwind CSS 4, Framer Motion.
 
-## 💎 Key Features
+##  Key Features
 
 ### 1. Interactive 3D Project Cards
 Experience projects in depth. Each card features a fluid 3D tilt effect, glassmorphism overlays, and a sophisticated color-mixing gradient that blends project images into the content area.
@@ -38,12 +38,12 @@ An immersive visual background that sets the tone for a futuristic and premium d
 
 
 
-## 👤 Author
+##  Author
 
 **Ashmit Kumar**
-- 🌍 **Website**: [ashmit-kumar.vercel.app](https://ashmit-kumar.vercel.app)
-- 💼 **LinkedIn**: [ashmitkumar2005](https://www.linkedin.com/in/ashmitkumar2005)
-- 🐙 **GitHub**: [@ashmitkumar2005](https://github.com/ashmitkumar2005)
+-  **Website**: [ashmit-kumar.vercel.app](https://ashmit-kumar.vercel.app)
+-  **LinkedIn**: [ashmitkumar2005](https://www.linkedin.com/in/ashmitkumar2005)
+-  **GitHub**: [@ashmitkumar2005](https://github.com/ashmitkumar2005)
 
 ---
 *Created with ❤️ by Ashmit Kumar*

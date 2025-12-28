@@ -52,11 +52,15 @@ export default function ProjectGlance({ url, isOpen, onClose, title }: ProjectGl
                         {/* Toolbar */}
                         <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10 backdrop-blur-md">
                             <div className="flex items-center gap-4">
-                                <div className="flex gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                                    <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                                </div>
+                                <button
+                                    onClick={onClose}
+                                    className="group relative flex items-center justify-center p-2 -ml-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
+                                    title="Close Preview"
+                                >
+                                    <div className="w-5 h-5 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors border border-black/10 shadow-sm flex items-center justify-center">
+                                        <X size={10} className="text-black/60 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={3} />
+                                    </div>
+                                </button>
                                 <div className="h-4 w-px bg-white/10 mx-1" />
                                 <h3 className="text-sm font-medium text-white/90 truncate max-w-[200px] sm:max-w-md">
                                     {title} <span className="text-white/30 mx-2">—</span> <span className="text-white/50 text-xs font-normal">{url.replace('https://', '')}</span>
@@ -73,16 +77,11 @@ export default function ProjectGlance({ url, isOpen, onClose, title }: ProjectGl
                                     <ExternalLink size={14} />
                                     Open Live
                                 </a>
-                                <button
-                                    onClick={onClose}
-                                    className="p-1.5 rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-colors"
-                                >
-                                    <X size={20} />
-                                </button>
                             </div>
                         </div>
+
                         {/* Iframe content */}
-                        <div className="flex-1 relative bg-white">
+                        <div className="flex-1 relative bg-white overflow-hidden">
                             {loading && (
                                 <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a] z-10">
                                     <div className="flex flex-col items-center gap-4 text-center px-6">
@@ -105,6 +104,13 @@ export default function ProjectGlance({ url, isOpen, onClose, title }: ProjectGl
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             />
+
+                            {/* Bottom Vignette & Disclaimer */}
+                            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-20 flex items-end justify-center pb-4">
+                                <p className="text-[10px] sm:text-xs text-white font-bold tracking-wide bg-black/40 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 shadow-lg">
+                                    (This is Preview, View live site for full experience)
+                                </p>
+                            </div>
                         </div>
                     </motion.div>
                 </div>

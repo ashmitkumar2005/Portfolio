@@ -39,6 +39,14 @@ const CUSTOM_URLS: Record<string, string> = {
     "freqcast": "https://freqcast.vercel.app",
 };
 
+// Custom tech stack icons for projects
+const TECH_STACKS: Record<string, string[]> = {
+    "rivone": ["react", "typescript", "tailwindcss", "framer-motion"],
+    "rivault": ["nextdotjs", "typescript", "tailwindcss", "clerk", "supabase"],
+    "portfolio": ["nextdotjs", "typescript", "tailwindcss", "framer-motion", "three-dot-js"],
+    "freqcast": ["react", "typescript", "tailwindcss", "vignette"],
+};
+
 async function getRepos() {
     try {
         const res = await fetch(
@@ -108,6 +116,7 @@ export default async function WorkSection() {
                     repos={repos}
                     customImages={CUSTOM_IMAGES}
                     customUrls={CUSTOM_URLS}
+                    techStacks={TECH_STACKS}
                     projectImages={PROJECT_IMAGES}
                 />
             </div>

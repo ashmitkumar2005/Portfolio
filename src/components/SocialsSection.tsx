@@ -129,14 +129,20 @@ export default function SocialsSection() {
             <div className="grid grid-cols-2 gap-4 w-full max-w-md md:hidden">
                 {socials.map((social, index) => {
                     const isLastAndOdd = index === socials.length - 1 && socials.length % 2 !== 0;
+                    const isNonClickable = ["leetcode", "codechef", "gfg"].includes(social.id);
+                    const Container = isNonClickable ? "div" : "a";
+                    const containerProps = isNonClickable ? {} : {
+                        href: social.url,
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                        "aria-label": `Visit my ${social.name} profile`
+                    };
+
                     return (
-                        <a
+                        <Container
                             key={social.id}
-                            href={social.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`Visit my ${social.name} profile`}
-                            className={`group relative rounded-3xl bg-transparent backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 ${social.glow.replace("group-hover:", "")} ${isLastAndOdd ? "col-span-2 aspect-[2/1]" : "aspect-square"
+                            {...containerProps}
+                            className={`group relative rounded-3xl bg-transparent backdrop-blur-sm overflow-hidden ${!isNonClickable ? "cursor-pointer" : ""} transition-all duration-300 ${social.glow.replace("group-hover:", "")} ${isLastAndOdd ? "col-span-2 aspect-[2/1]" : "aspect-square"
                                 }`}
                         >
                             {/* Background Gradient */}
@@ -219,195 +225,193 @@ export default function SocialsSection() {
                                     )}
                                 </div>
                             </div>
-                        </a>
+                        </Container>
                     );
                 })}
             </div>
 
             {/* Desktop View: Expanding Flex Row */}
             <div className="hidden md:flex w-full max-w-5xl h-[400px] gap-4">
-                {socials.map((social) => (
-                    <motion.a
-                        key={social.id}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Visit my ${social.name} profile`}
-                        className={`group relative flex-1 rounded-3xl bg-transparent backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-500 ease-out ${social.glow}`}
-                        onMouseEnter={() => setHovered(social.id)}
-                        onMouseLeave={() => setHovered(null)}
-                        layout
-                        style={{
-                            flexGrow: hovered === social.id ? 3 : 1,
-                        }}
-                    >
-                        {/* Background Gradient */}
-                        <div
-                            className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                        />
+                {socials.map((social) => {
+                    const isNonClickable = ["leetcode", "codechef", "gfg"].includes(social.id);
+                    const Container = isNonClickable ? motion.div : motion.a;
+                    const containerProps = isNonClickable ? {} : {
+                        href: social.url,
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                        "aria-label": `Visit my ${social.name} profile`
+                    };
 
-                        {/* Content Container */}
-                        <div className="relative h-full w-full flex flex-col items-center justify-center p-6">
-                            {/* Icon */}
-                            <motion.div
-                                layout="position"
-                                className={`group-hover:text-white group-hover:scale-125 transition-all duration-500 mb-4 ${hovered === "github" && social.id === "github" ? "text-white scale-125 -translate-y-8" : "text-white/80"
-                                    }`}
-                            >
-                                {social.icon}
-                            </motion.div>
+                    return (
+                        <Container
+                            key={social.id}
+                            {...containerProps}
+                            className={`group relative flex-1 rounded-3xl bg-transparent backdrop-blur-sm overflow-hidden ${!isNonClickable ? "cursor-pointer" : "cursor-default"} transition-all duration-500 ease-out ${social.glow}`}
+                            onMouseEnter={() => setHovered(social.id)}
+                            onMouseLeave={() => setHovered(null)}
+                            layout
+                            style={{
+                                flexGrow: hovered === social.id ? 3 : 1,
+                            }}
+                        >
+                            {/* Background Gradient */}
+                            <div
+                                className={`absolute inset-0 bg-gradient-to-b ${social.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                            />
 
-                            {/* Text Label & Expanded Content */}
-                            <div className="relative overflow-hidden w-full flex justify-center">
-                                <AnimatePresence mode="wait">
-                                    {hovered === social.id ? (
-                                        <motion.div
-                                            key="expanded"
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 20 }}
-                                            transition={{ duration: 0.3, delay: 0.1 }}
-                                            className="flex flex-col items-center gap-1"
-                                        >
-                                            <span className="text-2xl font-bold text-white whitespace-nowrap">
+                            {/* Content Container */}
+                            <div className="relative h-full w-full flex flex-col items-center justify-center p-6">
+                                {/* Icon */}
+                                <motion.div
+                                    layout="position"
+                                    className={`group-hover:text-white group-hover:scale-125 transition-all duration-500 mb-4 ${hovered === "github" && social.id === "github" ? "text-white scale-125 -translate-y-8" : "text-white/80"
+                                        }`}
+                                >
+                                    {social.icon}
+                                </motion.div>
+
+                                {/* Text Label & Expanded Content */}
+                                <div className="relative overflow-hidden w-full flex justify-center">
+                                    <AnimatePresence mode="wait">
+                                        {hovered === social.id ? (
+                                            <motion.div
+                                                key="expanded"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: 20 }}
+                                                transition={{ duration: 0.3, delay: 0.1 }}
+                                                className="flex flex-col items-center gap-1"
+                                            >
+                                                <span className="text-2xl font-bold text-white whitespace-nowrap">
+                                                    {social.name}
+                                                </span>
+                                                {social.id === "github" && githubStats && (
+                                                    <div className="flex flex-col items-center gap-4 mt-2">
+                                                        <div className="flex flex-col items-center">
+                                                            <span className="text-sm text-gray-300 whitespace-nowrap">
+                                                                {githubStats.currentYear} Contributions made this year
+                                                            </span>
+                                                            <span className="text-sm text-gray-300 whitespace-nowrap">
+                                                                {githubStats.total} Total contributions made
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Contribution Graph (Desktop - Last 18 weeks) */}
+                                                        <div className="grid grid-rows-7 grid-flow-col gap-[3px]">
+                                                            {githubStats.contributions.map((day, i) => (
+                                                                <motion.div
+                                                                    key={i}
+                                                                    initial={{ opacity: 0, scale: 0 }}
+                                                                    animate={{ opacity: day.level === 0 ? 0.1 : 0.2 + (day.level * 0.2), scale: 1 }}
+                                                                    transition={{ delay: i * 0.005 }}
+                                                                    className="w-2.5 h-2.5 rounded-[2px] bg-white"
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {social.id === "linkedin" && (
+                                                    <div className="flex flex-col items-center gap-1 mt-2">
+                                                        <span className="text-sm text-gray-300 whitespace-nowrap">
+                                                            1,247 Followers
+                                                        </span>
+                                                        <span className="text-sm text-gray-300 whitespace-nowrap">
+                                                            245 Profile views (90d)
+                                                        </span>
+                                                        {/* Desktop Sparkline */}
+                                                        <div className="mt-2 opacity-60">
+                                                            <svg width="100" height="30" viewBox="0 0 100 30">
+                                                                <defs>
+                                                                    <linearGradient id="growthGradient" x1="0" y1="0" x2="0" y2="1">
+                                                                        <stop offset="0%" stopColor="white" stopOpacity="0.4" />
+                                                                        <stop offset="100%" stopColor="white" stopOpacity="0" />
+                                                                    </linearGradient>
+                                                                </defs>
+                                                                <path
+                                                                    d="M0 25 Q20 28 35 15 T70 12 T100 2"
+                                                                    fill="none"
+                                                                    stroke="white"
+                                                                    strokeWidth="2"
+                                                                    strokeLinecap="round"
+                                                                />
+                                                                <path
+                                                                    d="M0 25 Q20 28 35 15 T70 12 T100 2 V30 H0 Z"
+                                                                    fill="url(#growthGradient)"
+                                                                    stroke="none"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {social.id === "leetcode" && (
+                                                    <div className="flex flex-col items-center gap-2 mt-4 px-4 py-2 bg-black/40 rounded-lg border border-white/10 w-full max-w-[200px]">
+                                                        <div className="font-mono text-xs text-green-400 w-full text-left">
+                                                            <span className="text-gray-500 mr-2">$</span>
+                                                            {leetCodeLines[leetCodeLine]}
+                                                            <span className="animate-pulse">_</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {social.id === "gfg" && (
+                                                    <div className="flex flex-col items-center gap-1 mt-2">
+                                                        <span className="text-sm text-gray-300 whitespace-nowrap italic">
+                                                            Compiling success stories...
+                                                        </span>
+                                                        <span className="text-xs text-gray-400 whitespace-nowrap">
+                                                            Dashboard in progress ⚡
+                                                        </span>
+                                                        {/* Pulse Animation */}
+                                                        <div className="flex gap-1 mt-2">
+                                                            {[0, 1, 2].map((i) => (
+                                                                <motion.div
+                                                                    key={i}
+                                                                    className="w-1.5 h-1.5 rounded-full bg-green-500/50"
+                                                                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                                                                    transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {social.id === "codechef" && (
+                                                    <div className="flex flex-col items-center gap-1 mt-2">
+                                                        <span className="text-sm text-gray-300 whitespace-nowrap italic">
+                                                            Cooking up top-tier code...
+                                                        </span>
+                                                        <span className="text-xs text-gray-400 whitespace-nowrap">
+                                                            Kitchen opening soon 👨‍🍳
+                                                        </span>
+                                                        {/* Bounce Animation */}
+                                                        <div className="flex gap-1 mt-2">
+                                                            <motion.div
+                                                                className="w-2 h-2 rounded-full bg-amber-600/50"
+                                                                animate={{ y: [0, -5, 0] }}
+                                                                transition={{ duration: 0.6, repeat: Infinity }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </motion.div>
+                                        ) : (
+                                            <motion.span
+                                                key="collapsed"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="text-sm font-medium text-gray-400 writing-vertical-rl rotate-180 absolute left-1/2 -translate-x-1/2 top-12"
+                                            >
                                                 {social.name}
-                                            </span>
-                                            {social.id === "github" && githubStats && (
-                                                <div className="flex flex-col items-center gap-4 mt-2">
-                                                    <div className="flex flex-col items-center">
-                                                        <span className="text-sm text-gray-300 whitespace-nowrap">
-                                                            {githubStats.currentYear} Contributions made this year
-                                                        </span>
-                                                        <span className="text-sm text-gray-300 whitespace-nowrap">
-                                                            {githubStats.total} Total contributions made
-                                                        </span>
-                                                    </div>
+                                            </motion.span>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
 
-                                                    {/* Contribution Graph (Desktop - Last 18 weeks) */}
-                                                    <div className="grid grid-rows-7 grid-flow-col gap-[3px]">
-                                                        {githubStats.contributions.map((day, i) => (
-                                                            <motion.div
-                                                                key={i}
-                                                                initial={{ opacity: 0, scale: 0 }}
-                                                                animate={{ opacity: day.level === 0 ? 0.1 : 0.2 + (day.level * 0.2), scale: 1 }}
-                                                                transition={{ delay: i * 0.005 }}
-                                                                className="w-2.5 h-2.5 rounded-[2px] bg-white"
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {social.id === "linkedin" && (
-                                                <div className="flex flex-col items-center gap-1 mt-2">
-                                                    <span className="text-sm text-gray-300 whitespace-nowrap">
-                                                        1,247 Followers
-                                                    </span>
-                                                    <span className="text-sm text-gray-300 whitespace-nowrap">
-                                                        245 Profile views (90d)
-                                                    </span>
-                                                    {/* Desktop Sparkline */}
-                                                    <div className="mt-2 opacity-60">
-                                                        <svg width="100" height="30" viewBox="0 0 100 30">
-                                                            <defs>
-                                                                <linearGradient id="growthGradient" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="0%" stopColor="white" stopOpacity="0.4" />
-                                                                    <stop offset="100%" stopColor="white" stopOpacity="0" />
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <path
-                                                                d="M0 25 Q20 28 35 15 T70 12 T100 2"
-                                                                fill="none"
-                                                                stroke="white"
-                                                                strokeWidth="2"
-                                                                strokeLinecap="round"
-                                                            />
-                                                            <path
-                                                                d="M0 25 Q20 28 35 15 T70 12 T100 2 V30 H0 Z"
-                                                                fill="url(#growthGradient)"
-                                                                stroke="none"
-                                                            />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {social.id === "leetcode" && (
-                                                <div className="flex flex-col items-center gap-2 mt-4 px-4 py-2 bg-black/40 rounded-lg border border-white/10 w-full max-w-[200px]">
-                                                    <div className="font-mono text-xs text-green-400 w-full text-left">
-                                                        <span className="text-gray-500 mr-2">$</span>
-                                                        {leetCodeLines[leetCodeLine]}
-                                                        <span className="animate-pulse">_</span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {social.id === "gfg" && (
-                                                <div className="flex flex-col items-center gap-1 mt-2">
-                                                    <span className="text-sm text-gray-300 whitespace-nowrap italic">
-                                                        Compiling success stories...
-                                                    </span>
-                                                    <span className="text-xs text-gray-400 whitespace-nowrap">
-                                                        Dashboard in progress ⚡
-                                                    </span>
-                                                    {/* Pulse Animation */}
-                                                    <div className="flex gap-1 mt-2">
-                                                        {[0, 1, 2].map((i) => (
-                                                            <motion.div
-                                                                key={i}
-                                                                className="w-1.5 h-1.5 rounded-full bg-green-500/50"
-                                                                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-                                                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {social.id === "codechef" && (
-                                                <div className="flex flex-col items-center gap-1 mt-2">
-                                                    <span className="text-sm text-gray-300 whitespace-nowrap italic">
-                                                        Cooking up top-tier code...
-                                                    </span>
-                                                    <span className="text-xs text-gray-400 whitespace-nowrap">
-                                                        Kitchen opening soon 👨‍🍳
-                                                    </span>
-                                                    {/* Bounce Animation */}
-                                                    <div className="flex gap-1 mt-2">
-                                                        <motion.div
-                                                            className="w-2 h-2 rounded-full bg-amber-600/50"
-                                                            animate={{ y: [0, -5, 0] }}
-                                                            transition={{ duration: 0.6, repeat: Infinity }}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </motion.div>
-                                    ) : (
-                                        <motion.span
-                                            key="collapsed"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="text-sm font-medium text-gray-400 writing-vertical-rl rotate-180 absolute left-1/2 -translate-x-1/2 top-12"
-                                        >
-                                            {social.name}
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
+
                             </div>
-
-                            {/* Arrow Icon (Only visible on hover) */}
-                            <motion.div
-                                className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"
-                                initial={{ x: -10 }}
-                                animate={{ x: hovered === social.id ? 0 : -10 }}
-                            >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                                    <line x1="7" y1="17" x2="17" y2="7" />
-                                    <polyline points="7 7 17 7 17 17" />
-                                </svg>
-                            </motion.div>
-                        </div>
-                    </motion.a>
-                ))}
+                        </Container>
+                    );
+                })}
             </div>
         </section>
     );

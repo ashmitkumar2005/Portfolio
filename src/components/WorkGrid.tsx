@@ -21,10 +21,11 @@ interface WorkGridProps {
     repos: Repo[];
     customImages: Record<string, string>;
     customUrls: Record<string, string>;
+    techStacks: Record<string, string[]>;
     projectImages: string[];
 }
 
-export default function WorkGrid({ repos, customImages, customUrls, projectImages }: WorkGridProps) {
+export default function WorkGrid({ repos, customImages, customUrls, techStacks, projectImages }: WorkGridProps) {
     const [activeProject, setActiveProject] = useState<{ url: string; title: string } | null>(null);
 
     const handleCardClick = (repo: Repo) => {
@@ -45,7 +46,7 @@ export default function WorkGrid({ repos, customImages, customUrls, projectImage
                             title={repo.name.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
                             subtitle={repo.description || "No description available."}
                             imageUrl={customImages[repoNameLower] || projectImages[index % projectImages.length]}
-                            badgeText={repo.language || "Code"}
+                            techStack={techStacks[repoNameLower] || [repo.language || "code"]}
                             href={repo.html_url}
                             onClick={() => handleCardClick(repo)}
                         />

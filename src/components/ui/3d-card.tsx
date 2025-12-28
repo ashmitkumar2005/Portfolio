@@ -19,6 +19,8 @@ export interface Interactive3DCardProps {
     className?: string;
     /** Optional language/tech badge text */
     badgeText?: string;
+    /** Tech stack icons to display */
+    techStack?: string[];
 }
 
 /**
@@ -29,7 +31,7 @@ export const Interactive3DCard = React.forwardRef<
     Interactive3DCardProps
 >(
     (
-        { title, subtitle, imageUrl, actionText = "View Project", href, onClick, onActionClick, className, badgeText },
+        { title, subtitle, imageUrl, actionText = "View Project", href, onClick, onActionClick, className, badgeText, techStack },
         ref
     ) => {
         // --- 3D Tilt Animation Logic ---
@@ -81,20 +83,15 @@ export const Interactive3DCard = React.forwardRef<
                         transform: "translateZ(50px)",
                         transformStyle: "preserve-3d",
                     }}
-                    className="absolute inset-4 flex flex-col h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-[40px] border border-white/10 bg-black/40 backdrop-blur-xl group transition-all duration-500 ease-out hover:border-white/90 hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] overflow-hidden"
+                    className="absolute inset-4 flex flex-col h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-[40px] border border-white/10 bg-black group transition-all duration-500 ease-out hover:border-white/90 hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] overflow-hidden"
                 >
-                    {/* Upper 40% - Content with White Glow */}
-                    <div className="relative h-[40%] p-6 z-20 flex flex-col justify-between bg-gradient-to-b from-white/10 to-transparent backdrop-blur-sm">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                {badgeText && (
-                                    <motion.span
-                                        style={{ transform: "translateZ(30px)" }}
-                                        className="inline-block px-3 py-1 mb-3 rounded-full text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/20 backdrop-blur-md"
-                                    >
-                                        {badgeText}
-                                    </motion.span>
-                                )}
+                    {/* Upper Section - Content with Glassmorphism */}
+                    <div className="relative z-20 p-8 pb-12 bg-black/40 backdrop-blur-md">
+                        {/* Bleed effect gradient from image (simulated) */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/20 z-minus" />
+
+                        <div className="flex justify-between items-start relative z-10">
+                            <div className="flex-1 pr-4">
                                 <motion.h2
                                     style={{ transform: "translateZ(50px)" }}
                                     className="text-2xl font-bold text-white tracking-tight"
@@ -103,35 +100,50 @@ export const Interactive3DCard = React.forwardRef<
                                 </motion.h2>
                                 <motion.p
                                     style={{ transform: "translateZ(40px)" }}
-                                    className="text-sm text-gray-300 mt-1 line-clamp-2 leading-relaxed"
+                                    className="text-sm text-gray-300 mt-2 line-clamp-2 leading-relaxed"
                                 >
                                     {subtitle}
                                 </motion.p>
                             </div>
 
-                            <motion.a
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                whileHover={{ scale: 1.1, rotate: "5deg" }}
-                                whileTap={{ scale: 0.9 }}
-                                aria-label={`View ${title}`}
-                                style={{ transform: "translateZ(60px)" }}
-                                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 border border-white/20 backdrop-blur-md hover:bg-white/20 hover:border-white/40 transition-colors"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <ArrowUpRight className="h-5 w-5 text-white" />
-                            </motion.a>
+                            <div className="flex gap-2" style={{ transform: "translateZ(40px)" }}>
+                                {techStack?.map((tech) => (
+                                    <div
+                                        key={tech}
+                                        className="h-8 w-8 rounded-full bg-black border border-white/20 flex items-center justify-center overflow-hidden p-1.5 shadow-xl"
+                                        title={tech}
+                                    >
+                                        <img
+                                            src={`https://cdn.simpleicons.org/${tech}`}
+                                            alt={tech}
+                                            className="w-full h-full object-contain brightness-0 invert opacity-100"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    {/* Lower 60% - Project Preview Image */}
-                    <div className="relative h-[60%] overflow-hidden">
+                    {/* Lower Section - Image Preview with Top Fade */}
+                    <div className="relative flex-1 overflow-hidden -mt-8 z-10">
+                        {/* Gradient Transition Overlay */}
+                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-20 pointer-events-none" />
+
                         <img
                             src={imageUrl}
                             alt={title}
-                            className="h-full w-full object-cover object-top"
+                            className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         />
+
+                        {/* Shadow for depth */}
+                        <div className="absolute inset-0 shadow-[inset_0_20px_40px_rgba(0,0,0,0.8)] pointer-events-none z-10" />
+                    </div>
+
+                    {/* Footer Explore Text */}
+                    <div className="absolute bottom-6 left-8 z-30">
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold group-hover:text-blue-400 transition-colors">
+                            Explore Project
+                        </span>
                     </div>
                 </div>
             </motion.div>

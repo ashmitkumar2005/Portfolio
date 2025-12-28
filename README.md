@@ -10,7 +10,7 @@ A high-performance, visually stunning developer portfolio built with the latest 
 
 ## 🚀 Experience the Magic
 
-- **Live Site**: [ashmitkumar.vercel.app](https://ashmitkumar.vercel.app)
+- **Live Site**: [ashmit-kumar.vercel.app](https://ashmit-kumar.vercel.app)
 - **Tech Stack**: Next.js 16 (Turbopack), React 19, Tailwind CSS 4, Framer Motion.
 
 ## 💎 Key Features
@@ -36,43 +36,12 @@ An immersive visual background that sets the tone for a futuristic and premium d
 - **Icons**: [Lucide React](https://lucide.dev/) & [Simple Icons](https://simpleicons.org/)
 - **Fonts**: Custom luxury typography
 
-## ⚙️ Getting Started
 
-### Prerequisites
-- Node.js 20+
-- npm / pnpm / yarn
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/ashmitkumar2005/Portfolio.git
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## 📦 Deployment
-
-The project is optimized for production and can be easily deployed on **Vercel**:
-
-```bash
-npm run build
-```
 
 ## 👤 Author
 
 **Ashmit Kumar**
-- 🌍 **Website**: [ashmitkumar.vercel.app](https://ashmitkumar.vercel.app)
+- 🌍 **Website**: [ashmit-kumar.vercel.app](https://ashmit-kumar.vercel.app)
 - 💼 **LinkedIn**: [ashmitkumar2005](https://www.linkedin.com/in/ashmitkumar2005)
 - 🐙 **GitHub**: [@ashmitkumar2005](https://github.com/ashmitkumar2005)
 

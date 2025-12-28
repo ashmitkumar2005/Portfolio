@@ -127,8 +127,6 @@ export default function ContactSection({
               <SocialLink href="https://github.com/ashmitkumar2005" icon="github" />
               <div className="w-px h-6 bg-white/10" />
               <SocialLink href="https://drive.google.com/file/d/1eg1fr1Qv4DKUHBTAukjwgP0KFq7kfmMP/view?usp=sharing" icon="resume" />
-              <div className="w-px h-6 bg-white/10" />
-              <SocialLink href="mailto:ashmitkumar2005@gmail.com" icon="calendar" />
             </div>
           </div>
         </div>

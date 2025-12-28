@@ -1,8 +1,12 @@
-# ✨ Portfolio 2025
+# ✨ Developer Portfolio of Ashmit Kumar
 
 A high-performance, visually stunning developer portfolio built with the latest web technologies. This project showcases a blend of interactive 3D elements, sleek glassmorphism, and a seamless user experience.
 
-![Portfolio Preview](public/portfolio-preview.webp) <!-- Note: Replace with actual image path if available -->
+<img width="1904" height="1080" alt="Screenshot_20251228_184540" src="https://github.com/user-attachments/assets/da0bb972-61fc-4526-a27c-f8d36a928231" />
+<img width="1904" height="1080" alt="Screenshot_20251228_184618" src="https://github.com/user-attachments/assets/e752da57-1b40-413f-967c-968e88b81af3" />
+<img width="1904" height="1080" alt="Screenshot_20251228_184625" src="https://github.com/user-attachments/assets/5826e6b4-72b3-48f8-b693-101d72e7c0d8" />
+<img width="1904" height="1080" alt="Screenshot_20251228_184630" src="https://github.com/user-attachments/assets/97f734a4-f632-4bf0-9430-b1819d6285c7" />
+
 
 ## 🚀 Experience the Magic
 

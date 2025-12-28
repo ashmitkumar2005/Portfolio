@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import localFont from "next/font/local";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
@@ -76,6 +77,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <ContactSection />
+        <SpeedInsights />
         <footer className={`mt-16 mb-8 text-center relative z-10 ${outfit.className}`}>
           <p className="text-xs text-white/40 uppercase tracking-widest font-light hover:text-white/60 transition-colors">
             Copyright &copy; {new Date().getFullYear()} Ashmit Kumar. All Rights Reserved.

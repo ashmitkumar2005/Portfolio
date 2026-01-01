@@ -48,7 +48,7 @@ export default function KnowMeSection() {
 
     return (
         <section id="know-me" className="relative z-10 w-full pt-16 pb-40 sm:pt-20 sm:pb-48 font-sf">
-            <div className="w-full max-w-[90%] mx-auto px-4 sm:px-6 md:px-8">
+            <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
                 <div
                     className="relative w-full p-6 sm:p-8 md:p-10"
                 >

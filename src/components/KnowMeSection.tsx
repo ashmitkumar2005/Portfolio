@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { ParticleCard } from "./ui/ParticleCard";
+
 
 const keyStrengths = [
     "Early hands-on experience with computers and software environments",
@@ -49,9 +49,8 @@ export default function KnowMeSection() {
     return (
         <section id="know-me" className="relative z-10 w-full pt-16 pb-40 sm:pt-20 sm:pb-48 font-sf">
             <div className="w-full max-w-[90%] mx-auto px-4 sm:px-6 md:px-8">
-                <ParticleCard
-                    className="w-full p-6 sm:p-8 md:p-10"
-                    particleCount={2000}
+                <div
+                    className="relative w-full p-6 sm:p-8 md:p-10"
                 >
                     {/* Header */}
                     <div className="flex flex-col items-center text-center mb-10 relative z-10">
@@ -78,7 +77,6 @@ export default function KnowMeSection() {
                             whileInView="visible"
                             viewport={{ once: true }}
                             className="w-full bg-transparent rounded-[40px] p-8 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.4)]"
-                            data-particle-target
                             role="article"
                             aria-label="About Me Bio"
                         >
@@ -121,9 +119,9 @@ export default function KnowMeSection() {
                             ))}
                         </div>
                     </div>
-                </ParticleCard>
+                </div>
             </div>
-        </section>
+        </section >
     );
 }
 
